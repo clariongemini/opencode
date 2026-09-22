@@ -1,0 +1,14 @@
+# Apache yönlendirme (production) — tüm istekler front controller'a.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Nokta dosyaları ve hassas yollar engelli
+  RewriteRule "(^|/)\." - [F]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# PHP sürüm bilgisini gizle
+<IfModule mod_headers.c>
+  Header unset X-Powered-By
+</IfModule>

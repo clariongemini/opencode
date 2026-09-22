@@ -1,0 +1,803 @@
+{
+  "sayfalar": [
+    {
+      "sayfa": "/",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 95,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "54 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "159 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          false,
+          "%4.57"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "Organization,WebSite"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "310ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "205ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/urunler",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 90,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "50 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "150 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/urunler"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          false,
+          "%4.55"
+        ],
+        [
+          "JSON-LD",
+          false,
+          ""
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "193ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "152ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/sss",
+      "hedef": 90,
+      "durum": 200,
+      "skor": 95,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "53 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "157 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/sss"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          false,
+          "%2.30"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "FAQPage"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "231ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "182ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ],
+        [
+          "etkileşim <200ms",
+          true,
+          "62ms"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/iletisim",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 95,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "58 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "158 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/iletisim"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          false,
+          "%7.81"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "LocalBusiness"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "160ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "134ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/teklif-al",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 95,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "55 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "158 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/teklif-al"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          false,
+          "%4.95"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "ContactPage"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "162ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "132ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/ar/",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 100,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "52 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "151 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/ar/"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          true,
+          "%1.61"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "Organization,WebSite"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "287ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "235ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/de/",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 100,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "54 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "158 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/de/"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          true,
+          "%1.65"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "Organization,WebSite"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "204ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "164ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/en/",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 100,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "55 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "158 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/en/"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          true,
+          "%1.46"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "Organization,WebSite"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "190ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "159ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/fr/",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 100,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "51 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "156 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/fr/"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          true,
+          "%1.52"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "Organization,WebSite"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "251ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "213ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    },
+    {
+      "sayfa": "/it/",
+      "hedef": 85,
+      "durum": 200,
+      "skor": 100,
+      "sonuc": "PASS",
+      "kontroller": [
+        [
+          "title 50-60",
+          true,
+          "50 karakter"
+        ],
+        [
+          "desc 150-160",
+          true,
+          "157 karakter"
+        ],
+        [
+          "canonical",
+          true,
+          "http://127.0.0.1:8080/it/"
+        ],
+        [
+          "robots",
+          true,
+          "index, follow"
+        ],
+        [
+          "viewport",
+          true,
+          "tanımlı"
+        ],
+        [
+          "OG tam",
+          true,
+          "4/4"
+        ],
+        [
+          "tek H1 + sıra",
+          true,
+          "h1=1"
+        ],
+        [
+          "iç link sağlam",
+          true,
+          "14 link"
+        ],
+        [
+          "yoğunluk %1-2",
+          true,
+          "%1.55"
+        ],
+        [
+          "JSON-LD",
+          true,
+          "Organization,WebSite"
+        ],
+        [
+          "hreflang 7",
+          true,
+          "7 adet"
+        ],
+        [
+          "LCP ≤2.5s",
+          true,
+          "171ms"
+        ],
+        [
+          "yük <2s",
+          true,
+          "136ms"
+        ],
+        [
+          "mobil taşma yok",
+          true,
+          "sığıyor"
+        ]
+      ]
+    }
+  ],
+  "teknik": {
+    "sitemap_url_adet": 72,
+    "robots_sitemap": true
+  }
+}

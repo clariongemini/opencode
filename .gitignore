@@ -1,14 +1,22 @@
 # macOS sistem dosyaları
 .DS_Store
+._*
 
 # Gizli bilgi — asla commit edilmez (AGENTS.md / database-administrator kuralı)
 .env
 .env.*
+!.env.example
 *.pem
 *.key
 
 # Bağımlılıklar
 node_modules/
+vendor/
+
+# Çalışma zamanı önbellekleri / kullanıcı yüklemeleri (commit dışı)
+cache/
+kamelya_hiz/
+**/storage/yuklemeler/
 
 # Loglar
 *.log

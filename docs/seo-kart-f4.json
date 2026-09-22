@@ -1,0 +1,337 @@
+[
+  {
+    "sayfa": "/",
+    "durum": 200,
+    "skor": 90,
+    "kontroller": [
+      [
+        "title 50-60",
+        true,
+        "54 karakter"
+      ],
+      [
+        "desc 150-160",
+        true,
+        "159 karakter"
+      ],
+      [
+        "canonical",
+        true,
+        "http://127.0.0.1:8080/"
+      ],
+      [
+        "robots",
+        true,
+        "index, follow"
+      ],
+      [
+        "viewport",
+        true,
+        "tanımlı"
+      ],
+      [
+        "OG tam",
+        true,
+        "4/4"
+      ],
+      [
+        "tek H1 + sıra",
+        true,
+        "h1=1, atlama=0"
+      ],
+      [
+        "iç link sağlam",
+        true,
+        "15 link, 0 kırık"
+      ],
+      [
+        "yoğunluk %1-2",
+        false,
+        "%4.93"
+      ],
+      [
+        "JSON-LD",
+        true,
+        "Organization,WebSite"
+      ],
+      [
+        "LCP ≤2.5s",
+        true,
+        "261ms"
+      ],
+      [
+        "mobil taşma yok",
+        true,
+        "sığıyor"
+      ]
+    ]
+  },
+  {
+    "sayfa": "/urunler",
+    "durum": 200,
+    "skor": 90,
+    "kontroller": [
+      [
+        "title 50-60",
+        true,
+        "50 karakter"
+      ],
+      [
+        "desc 150-160",
+        true,
+        "150 karakter"
+      ],
+      [
+        "canonical",
+        true,
+        "http://127.0.0.1:8080/urunler"
+      ],
+      [
+        "robots",
+        true,
+        "index, follow"
+      ],
+      [
+        "viewport",
+        true,
+        "tanımlı"
+      ],
+      [
+        "OG tam",
+        true,
+        "4/4"
+      ],
+      [
+        "tek H1 + sıra",
+        true,
+        "h1=1, atlama=0"
+      ],
+      [
+        "iç link sağlam",
+        true,
+        "15 link, 0 kırık"
+      ],
+      [
+        "yoğunluk %1-2",
+        false,
+        "%3.19"
+      ],
+      [
+        "JSON-LD",
+        true,
+        "ItemList"
+      ],
+      [
+        "LCP ≤2.5s",
+        true,
+        "168ms"
+      ],
+      [
+        "mobil taşma yok",
+        true,
+        "sığıyor"
+      ]
+    ]
+  },
+  {
+    "sayfa": "/sss",
+    "durum": 200,
+    "skor": 100,
+    "kontroller": [
+      [
+        "title 50-60",
+        true,
+        "53 karakter"
+      ],
+      [
+        "desc 150-160",
+        true,
+        "157 karakter"
+      ],
+      [
+        "canonical",
+        true,
+        "http://127.0.0.1:8080/sss"
+      ],
+      [
+        "robots",
+        true,
+        "index, follow"
+      ],
+      [
+        "viewport",
+        true,
+        "tanımlı"
+      ],
+      [
+        "OG tam",
+        true,
+        "4/4"
+      ],
+      [
+        "tek H1 + sıra",
+        true,
+        "h1=1, atlama=0"
+      ],
+      [
+        "iç link sağlam",
+        true,
+        "14 link, 0 kırık"
+      ],
+      [
+        "yoğunluk %1-2",
+        true,
+        "%1.43"
+      ],
+      [
+        "JSON-LD",
+        true,
+        "FAQPage"
+      ],
+      [
+        "LCP ≤2.5s",
+        true,
+        "247ms"
+      ],
+      [
+        "mobil taşma yok",
+        true,
+        "sığıyor"
+      ]
+    ]
+  },
+  {
+    "sayfa": "/urun/denetim-urun",
+    "durum": 200,
+    "skor": 90,
+    "kontroller": [
+      [
+        "title 50-60",
+        true,
+        "60 karakter"
+      ],
+      [
+        "desc 150-160",
+        true,
+        "158 karakter"
+      ],
+      [
+        "canonical",
+        true,
+        "http://127.0.0.1:8080/urun/denetim-urun"
+      ],
+      [
+        "robots",
+        true,
+        "index, follow"
+      ],
+      [
+        "viewport",
+        true,
+        "tanımlı"
+      ],
+      [
+        "OG tam",
+        true,
+        "4/4"
+      ],
+      [
+        "tek H1 + sıra",
+        true,
+        "h1=1, atlama=0"
+      ],
+      [
+        "iç link sağlam",
+        true,
+        "15 link, 0 kırık"
+      ],
+      [
+        "yoğunluk %1-2",
+        false,
+        "%6.86"
+      ],
+      [
+        "JSON-LD",
+        true,
+        "Product"
+      ],
+      [
+        "LCP ≤2.5s",
+        true,
+        "189ms"
+      ],
+      [
+        "mobil taşma yok",
+        true,
+        "sığıyor"
+      ]
+    ]
+  },
+  {
+    "sayfa": "/ar/",
+    "durum": 200,
+    "skor": 90,
+    "kontroller": [
+      [
+        "title 50-60",
+        true,
+        "52 karakter"
+      ],
+      [
+        "desc 150-160",
+        true,
+        "151 karakter"
+      ],
+      [
+        "canonical",
+        true,
+        "http://127.0.0.1:8080/ar/"
+      ],
+      [
+        "robots",
+        true,
+        "index, follow"
+      ],
+      [
+        "viewport",
+        true,
+        "tanımlı"
+      ],
+      [
+        "OG tam",
+        true,
+        "4/4"
+      ],
+      [
+        "tek H1 + sıra",
+        true,
+        "h1=1, atlama=0"
+      ],
+      [
+        "iç link sağlam",
+        true,
+        "15 link, 0 kırık"
+      ],
+      [
+        "yoğunluk %1-2",
+        false,
+        "%2.07"
+      ],
+      [
+        "JSON-LD",
+        true,
+        "Organization,WebSite"
+      ],
+      [
+        "LCP ≤2.5s",
+        true,
+        "200ms"
+      ],
+      [
+        "mobil taşma yok",
+        true,
+        "sığıyor"
+      ]
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+{
+    "name": "kamelya/backend",
+    "description": "Kamelya PHP/MySQL MVC API — F2 scaffold (standards/web/PHP_MVC_API.md)",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.1",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-curl": "*",
+        "ext-openssl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kamelya\\": "app/"
+        },
+        "classmap": [
+            "database/seeders/"
+        ]
+    },
+    "scripts": {
+        "migrate": "php scripts/migrate.php up",
+        "migrate-down": "php scripts/migrate.php down",
+        "migrate-status": "php scripts/migrate.php durum",
+        "seed": "php scripts/seed.php"
+    }
+}
