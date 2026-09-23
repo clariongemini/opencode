@@ -1513,4 +1513,5 @@ Test artıkları silindi (tur/dönüşüm/video + dosyalar + audit); toggle'lar 
 
 - **`.gitignore` kontrolü:** `.env`/`.env.*` ✓, `vendor/` ✓, `node_modules/` ✓, `uploads/` → bu görevde eklendi (daha önce yoktu; dizin repo'da mevcut değil, kural eklendi).
 - **Düzeltme — "28 untracked dosya":** `git ls-files --others --exclude-standard` = **0**. Daha önceki 28 dosya `d71bc28` (F0-F15) commit'inde güvenceye alınmış; görev öncesi yalnız `YAPILACAKLAR.md` modifiye idi. Commit tüm Bölüm B dosyalarını + YAPILACAKLAR.md'yi kapsar.
-- **Commit + push kanıtı:** aşağıda.
+- **Commit + push kanıtı:** commit `486d67a` — "AI-çağı SEO standartları + F16.2.1 SEO fix + eksik altyapı" (12 dosya, +418/−1) → `git push origin main` → `d71bc28..486d67a main -> main` · remote doğrulama: `git ls-remote origin main` SHA eşleşti.
+- **Gizlilik kontrolü:** `git check-ignore backend/.env` → ignore ✓ · repo'da `.env`/`vendor/` tracked değil ✓ · diff'te sır sızıntısı yok (API_KEY/TOKEN/SECRET taraması temiz) ✓ · migration/admin lint + `node --check` OK ✓.
