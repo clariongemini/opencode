@@ -43,6 +43,17 @@
       .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').substring(0, 220) || 'kayit';
   }
 
+  /* B.2 demo içerik rozeti — ayarlar.demo_icerik='1' ise görünür (salt admin). */
+  api('/admin/ayarlar').then(function (g) {
+    var demo = (g.data || []).some(function (a) {
+      return a.anahtar === 'demo_icerik' && String(a.deger) === '1';
+    });
+    if (demo) {
+      var rozet = document.getElementById('demo-icerik-rozet');
+      if (rozet) rozet.hidden = false;
+    }
+  }).catch(function () {});
+
   /* Dil sekmeli çeviri alanları üretir. alanlar: [{ad, etiket, tur}] */
   function dilSekmeler(kapId, icerikId, alanlar, onDeger) {
     var kap = document.getElementById(kapId), ice = document.getElementById(icerikId);

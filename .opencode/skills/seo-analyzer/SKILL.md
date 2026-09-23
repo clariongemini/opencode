@@ -12,6 +12,8 @@ description: >-
 
 # SEO Analyzer Skill
 
+> Bu standartlar hem web hem AI için geçerlidir → detay: `standards/seo/AI_CAĞI_SEO_STANDARTLARI.md` [EK-20260923]
+
 Kaynak: Geliştirici talebiyle oluşturuldu [EK-20260920] — Kamelya'nın "kendi içinde SEO analiz yapısı" hedefi için. `seo-specialist` skill'iyle ilişki: **seo-specialist = strateji/keşif kanalı** (meta baseline, long-tail, JTBD), **seo-analyzer = teknik denetim kanalı** (bu skill). İkisi birbirinin yerine geçmez.
 
 ## Denetim kapsamı (7 alan)

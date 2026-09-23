@@ -1,5 +1,7 @@
 # SEO Kontrol Listesi — Kamelya (mevcut durum F8)
 
+> Bu standartlar hem web hem AI için geçerlidir → detay: `standards/seo/AI_CAĞI_SEO_STANDARTLARI.md` [EK-20260923]
+
 - [x] Sayfa başına tek H1, atlamasız hiyerarşi (denetimde footer düzeltildi).
 - [x] Title 50–60, description 150–160 bantları (10 sayfa: 85–100 skor).
 - [x] Canonical + robots + OG/Twitter her sayfada.

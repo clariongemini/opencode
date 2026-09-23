@@ -17,6 +17,7 @@ vendor/
 cache/
 kamelya_hiz/
 **/storage/yuklemeler/
+uploads/
 
 # Loglar
 *.log

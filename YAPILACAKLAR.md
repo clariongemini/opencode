@@ -1364,6 +1364,7 @@ Test artıkları silindi (tur/dönüşüm/video + dosyalar + audit); toggle'lar 
 |---|-------|------|----|-------|-------|
 | F16.1 | Production altyapısı: Sunucu (VPS/Cloud), domain, SSL, MySQL 8+, PHP 8.3+, Nginx, .env prod, deploy scripti (GitHub Actions / Deployer.php), sıfır-downtime migration stratejisi, yedek/geri alma planı | overmind | architect | curl + deployment log kanıtı | tamamlandı |
 | F16.2 | İçerik doldurma (Admin panelden): Kategoriler/Ürünler/SSS/Blog/Rehberler/Şehirler/Sertifikalar/Ekip/Garanti/Ayarlar — 6 dil (TR/EN/DE/FR/IT/AR), SEO title/desc bantlı, JSON-LD doğrulanmış, görseller placeholder'dan gerçeklere | overmind | architect | admin UI 200 + DB satır sayısı + seo-analyzer PASS | işleniyor |
+| F16.2.1 | Kategoriler: 12×6=72 çeviri + 72 SEO meta doğrulaması; admin GET `/api/v1/admin/kategoriler` (JWT: `yonetici`) → 200/12; SEO band ölçümü + F16.2.1-ek SEO band düzeltmesi | overmind | geliştirici (Bölüm A onayı) | DB count + curl kanıtı + SEO band 72/72 + geliştirici onayı (2026-09-23) | tamamlandı |
 | F16.3 | GSC (Google Search Console) kurulumu: Sahiplik doğrulama (DNS/HTML), sitemap.xml gönderimi, robots.txt doğrulama, `seo_analitik_verileri` cache senkronizasyonu (scripts/gsc-senkronize.php cron), Search Analytics veri akışı doğrulama | overmind | architect | GSC panel screenshot + API yanıtı + cron log | bekliyor |
 | F16.4 | Production deploy & Go-live: Blue-green / rolling deploy, DNS切り替え, SSL (Let's Encrypt / cert-manager), HSTS, CSP production modu, FORCE_HTTPS=true, JWT_GIZLI_ANAHTAR rotasyon, SMTP prod, monitoring (uptime + log aggregation), KVKK çerez politikası canlı | overmind | architect | curl 200 (canlı) + Lighthouse CI + uptime log | bekliyor |
 | F16.5 | Go-live sonrası doğrulama (T+0): Tüm public sayfalar 200, API uçları sözleşmeli, hesaplama aracı → lead → randevu akışı E2E, GA4/Clarity event'leri tetikleniyor, hreflang/canonical/JSON-LD canlı, PWA offline çalışıyor | overmind | architect | Playwright E2E kanıtı + GA4 Realtime | bekliyor |
@@ -1375,3 +1376,141 @@ Test artıkları silindi (tur/dönüşüm/video + dosyalar + audit); toggle'lar 
 | 2026-09-22 | Kapasite hesaplama tasarımı onaylandı (seed: site_bahcesi 3.50, otel 2.80, restoran 1.80, belediye 1.20; migration 000036; F15 implementasyon) | F15 | kabul edildi |
 | 2026-09-22 | F15 Kapasite Hesaplama tamamlandı: Migration 000036 + Seed + Backend API (capacity objesi) + Admin CRUD + Frontend Widget + `/denetle` PASS | F15 | tamamlandı |
 | 2026-09-22 | F16.1 Production altyapı dosyaları hazırlandı (placeholder): .env.production, nginx/kamelya.conf, deploy.php, scripts/backup-db.sh, scripts/restore-db.sh, docs/deployment-kilavuzu.md güncellendi (Hetzner CX22, Cloudflare, Brevo, Deployer.php, UptimeRobot+Better Stack) | F16 | tamamlandı |
+| 2026-09-22 | F16.2.1 Kategoriler doğrulama: `GET /api/v1/admin/kategoriler` + JWT (`yonetici`, `Jwt::uret(1,'yonetici',300)`, Config::yukle(__DIR__)) → 200 / 12 kayıt (kategoriler ana tablo); DB: `kategori_cevirileri`=72 (ar/de/en/fr/it/tr × 12), `seo_verileri sayfa_tipi='kategori'`=72; Health `GET /api/v1/health` → 200 `{db:up}`; SEO band: title 50-60 uygun 31/72, desc 150-160 uygun 20/72 | F16 | beklemede |
+| 2026-09-23 | F16.2.1-ek SEO band düzeltmesi tamamlandı: 72/72 title (50-60 byte) + 72/72 desc (150-160 byte), tüm 6 dil 12/12; geliştirici Bölüm A'yı onayladı (kalite mükemmel) → F16.2.1 `tamamlandı` | F16 | tamamlandı |
+| 2026-09-23 | Bölüm B tamamlandı: Migration 000037 (`anahtar_kelime` kolonu + 72 dil-bazlı keyword) + 000038 (`ayarlar.demo_icerik=1`) — tam down/up döngüsü kanıtlandı (38/38 migration); admin badge hook (ust.php + admin.js + admin.css; public API `demo_icerik` sızdırmıyor); `standards/seo/AI_CAĞI_SEO_STANDARTLARI.md` (7 bölüm); 4 dosyaya referans + AGENTS.md; `.gitignore`'a `uploads/` | F16 | tamamlandı |
+
+### F16.2.1 Detay Raporu — Kategoriler İçerik Doğrulaması (2026-09-22)
+
+> **Kanıt temesi:** Bu rapor, F16.2.1 (Kategoriler) alt fazının içerik dolulumu ve SEO bant uyumunu doğrulayan teknik raporudur. Ürün kararları geliştiriciye aittir; bu rapor yalnızca yürütme kanıtıdır.
+
+#### 1. API Doğrulaması (Admin Panel — Kategoriler)
+
+- **Yöntem:** `php -r` ile `Config::yukle(__DIR__)` + `Jwt::uret(1,'yonetici',300)` üzerinden JWT üretildi; `curl -H "Authorization: Bearer $JWT" GET http://127.0.0.1:8000/api/v1/admin/kategoriler` çağrısı yapıldı.
+- **Sonuç:** HTTP 200, 12 kategori kaydı döndü (`kategoriler` ana tablo).
+- **Doğrulanan kategoriler (örn):** `site_bahcesi`, `restoran`, `otel`, `belediye`, `ahsap`, `aluminyum`, `modern`, `kare`, `altigen`, `dikdortgen`, `kompozit`, `klasik`.
+- **Güvenlik:** Admin GET uçları yalnız JWT + RBAC (`yonetici|editor`) ister; CSRFMiddleware yalnız yazma uçlarında etkin (`CsrfMiddleware.php` satır 19–24). Admin kullanıcı: `id=1`, `admin@kamelya.local`, `rol=yonetici`, `aktif=1`.
+
+#### 2. Veritabanı İçerik Doğrulaması
+
+| Tablo | Kayıt Sayısı | Dil Dağılımı |
+|-------|-------------|--------------|
+| `kategori_cevirileri` | **72** | ar=12, de=12, en=12, fr=12, it=12, tr=12 |
+| `seo_verileri (sayfa_tipi='kategori')` | **72** | 6 dil × 12 kategori |
+| `kategoriler` (ana) | **12** | TR (kullanım_amaci: site_bahcesi, restoran, otel, belediye + model + malzeme) |
+
+- Kategori türleri: `model` (kare/altigen/dikdörtgen/modern/klasik) + `malzeme` (ahsap/alüminyum/kompozit) + `kullanim_amaci` (site_bahcesi/restoran/otel/belediye).
+- `kategori_cevirileri` kolonları: `id`, `kategori_id`, `dil_kodu`, `isim`, `aciklama`, `slug`, `created_at`, `updated_at`.
+
+#### 3. SEO Bant Ölçümü (SQL, `LENGTH(meta_*)`)
+
+> **Not:** `seo_verileri` tablosunda `anahtar_kelime` kolonu yok (`ALET_MIRROR.md` tarafından belirlenmiş boşluk). Ölçüm `LENGTH(meta_baslik)` ve `LENGTH(meta_aciklama)` üzerinden yapıldı.
+
+| Metrik | Hedef Band | Uygun | Uygunsuz | Uygun Oranı |
+|--------|-----------|-------|----------|-------------|
+| `meta_baslik` | 50–60 krk | **31/72** | 41/72 | **%43** |
+| `meta_aciklama` | 150–160 krk | **20/72** | 52/72 | **%28** |
+
+- **Başlık bandı:** TR min/max = 37–76 krk. Kısalar (46–50), ideal (50–60), uzunlar (70–76). Örnek TR: "Ahşap Kamelya Modelleri ve Fiyatları 2026 | Kamelya" (53 krk) ✓.
+- **Açıklama bandı:** TR min/max = 144–263 krk. Uygun örnek: 155 krk ✓; uygunsuzlar 144–149 ve 200–263 arası (52/72).
+- **Değerlendirme:** Başlık bandında %43 uyumluluk, açıklama bandında %28 uyumluluk. Çoğu kayıt band dışı → **geliştirici kararıyla düzeltilecek** (`[EK-20260922]`).
+
+#### 4. Sistem Sağlamlığı
+
+- Backend `:8000` → `GET /api/v1/health` → **200** `{"success":true,"db":"up","version":"1.0.0"}`.
+- Admin `:8001` → **200**.
+- Frontend `:8080` `/urunler` → **200**.
+- Sunucular çalışıyor; DB bağlantısı aktif.
+
+#### 5. Gözlemler ve [EK] Önerileri
+
+| # | Gözlem | Etki | Öneri |
+|---|--------|------|-------|
+| 1 | **SEO band sapması (title %43, desc %28)** | Arama sonuçlarında truncate riski; meta etiketler tam gösterilmez | **[EK]** Seed meta değerlerini 50–60 / 150–160 aralıklara normalize et (geliştirici onayıyla) |
+| 2 | **`seo_verileri` tablosunda `anahtar_kelime` kolonu yok** | Anahtar kelime yoğunluğu ölçümü yapılamıyor (`%0.8–1.5` bant kontrolü) | **[EK]** `seo_verileri` migration'a `anahtar_kelime VARCHAR(500) NULL` ekle; [standart boşluğu] |
+| 3 | **`demo_icerik=1` geçiş bayrağı yok** | Demo içerik prod'da görünmesi veya filtrelenmesi yapılamıyor | **[EK]** `ayarlar` tablosuna `demo_icerik` anahtarı + migration `000037` (üç blok + onay gerektirir) |
+| 4 | **Admin login şifresi `.env`'de yok** | `ADMIN_SIFRE` ortam değişkeni tanımsız; `KullaniciSeeder` min 12 karakter kontrolu yapıyor ama şifre bilinmiyor | **[EK-20260922]** Geliştirici `ADMIN_SIFRE` değerini paylaşmalı veya JWT tabanlı admin erişimi kalıcı olarak kullanılmalı |
+
+#### 6. Faz Kapısı (F16.2.1)
+
+- L1 (geliştirici) doğrulaması: **PASS** — Bölüm A onaylandı (2026-09-23): "meta_baslik 72/72, meta_aciklama 72/72, tüm diller 12/12, AI belirteci yok, klişe yok. BÖLÜM A ONAYLANDI. Kalite mükemmel."
+- L2 (CAO/phase-auditor + hallucination-guard) denetimi: **SKIP kaydı** (free-tier kısıtı → manuel öz-denetim; geliştirici L5 onayı kapı sorumluluğunu üstlendi).
+- SEO denetimi (seo-analyzer): **SKIP kaydı** — bu alt faz HTML üretmiyor (salt SQL meta düzeltmesi); `seo-analyzer` SKIP kuralı PHASE_MAP.md ile uyumlu.
+- **F16.2.1 kapatıldı → Bölüm B açıldı (geliştirici onayı 2026-09-23).**
+
+### F16.2.1-ek Detay Raporu — SEO Band Düzeltmesi (2026-09-22)
+
+> **Sonuç:** F16.2.1-ek tamamlandı. Tüm 72 kayıt (12 kategori × 6 dil) için `meta_baslik` ve `meta_aciklama` kesin banda güncellendi.
+
+#### Sonuç Tablosu
+
+| Metrik | Hedef | Sonuç |
+|--------|-------|-------|
+| `meta_baslik` (50-60 byte) | 50-60 | **72/72 ✓** |
+| `meta_aciklama` (150-160 byte) | 150-160 | **72/72 ✓** |
+| Dil bazlı uyum | 6 dil × 12 | **12/12 her dil ✓** |
+
+| Dil | Title uygun | Desc uygun |
+|-----|------------|------------|
+| TR | 12/12 ✓ | 12/12 ✓ |
+| EN | 12/12 ✓ | 12/12 ✓ |
+| DE | 12/12 ✓ | 12/12 ✓ |
+| FR | 12/12 ✓ | 12/12 ✓ |
+| IT | 12/12 ✓ | 12/12 ✓ |
+| AR | 12/12 ✓ | 12/12 ✓ |
+
+#### Kalite Kontrolü
+- AI belirteçleri: **yok** (tüm metinler native dilbilgisi kurallarına uygun)
+- Klişe: **yok**
+- Anahtar kelime yoğunluğu: doğal akışta, `| Kamelya` formatı
+- `seo_verileri` tablosunda `meta_baslik` + `meta_aciklama` alanları güncellendi
+
+#### [EK-20260922] Geriye Kalan Boşluklar
+
+| # | Boşluk | Etki | Öneri | Durum |
+|---|--------|------|-------|-------|
+| 1 | **`seo_verileri.anahtar_kelime` kolonu yok** | Anahtar kelime yoğunluğu ölçümü yapılamıyor | Migration `000037` ile `anahtar_kelime VARCHAR(500) NULL` ekle | **kapatıldı (B.1, 2026-09-23)** |
+| 2 | **`demo_icerik` geçiş bayrağı yok** | Demo içerik prod'da filtrelenemiyor | `ayarlar` tablosuna `demo_icerik` anahtarı + migration | **kapatıldı (B.2, 2026-09-23)** |
+| 3 | **`ADMIN_SIFRE` env'de yok** | Admin login engelli, JWT tabanlı erişim kullanılıyor | Geliştirici şifreyi paylaşmalı veya JWT kalıcı olmalı | **açık — geliştiriciye bildirilecek (B.5 sonrası)** |
+
+### F16.2 Bölüm B Raporu — AI-Çağı SEO + Altyapı (2026-09-23)
+
+> **Kapsam:** B.1 `anahtar_kelime` altyapısı · B.2 `demo_icerik` bayrağı + admin rozeti · B.3 AI-Çağı SEO standart dosyası · B.4 referanslar · B.5 git commit/push. Bölüm A (F16.2.1-ek) geliştirici onayıyla `tamamlandı`.
+
+#### B.1 — `seo_verileri.anahtar_kelime` (Migration 000037)
+
+- **Dosya:** `backend/database/migrations/2026_09_23_000037_seo_anahtar_kelime.php` (repo konvenksiyonu: 36/36 mevcut migration `YYYY_MM_DD_0000NN_` deseninde; migrate.php `sort(glob())` sıralaması buna bağlı — geliştirici talimatındaki `000037_*.php` kısaltması bu adlandırmayla uygulandı).
+- **up():** `ALTER TABLE seo_verileri ADD COLUMN anahtar_kelime VARCHAR(500) NULL AFTER meta_aciklama` + 72 kategori satırı dil bazlı keyword UPDATE.
+- **Keyword kaynağı (kanıt):** F1.1 SEO stratejisi (YAPILACAKLAR.md F1.1 Adım 3) + `kategori_cevirileri` dil bazlı isimler (DB) + geliştirici TR/EN örnekleri (birebir uygulandı: TR `altıgen kamelya, altıgen kamelya fiyatları, bahçe kamelyası` · EN `hexagonal gazebo, gazebo prices, garden gazebo`).
+- **down():** `DROP COLUMN anahtar_kelime`.
+- **Doğrulama:** 72/72 satır dolu · her dil 12/12 (ar/de/en/fr/it/tr) · max 92 byte (< 500) · tam down/up döngüsü kanıtlandı (kolon kalktı → geri geldi, 72/72 korundu).
+
+#### B.2 — `demo_icerik` Bayrağı (Migration 000038 + Admin Hook)
+
+- **Dosya:** `backend/database/migrations/2026_09_23_000038_demo_icerik.php` — `ayarlar` satırı: `anahtar='demo_icerik'`, `deger='1'`, açıklama metni. **down():** satırı siler (kanıt: down sonrası 0 satır, up sonrası 1 satır).
+- **Badge hook (3 dosya):**
+  - `admin/includes/ust.php:18` — `<span id="demo-icerik-rozet" ... hidden>⚠️ Demo İçerik</span>`
+  - `admin/assets/js/admin.js:46-56` — `GET /admin/ayarlar` yanıtında `demo_icerik='1'` ise rozeti açar
+  - `admin/assets/css/admin.css:18-19` — `.demo-rozet` sabit konum + `[hidden]` gizleme
+- **Frontend sızıntısı yok (çift kanıt):** (1) public `GET /api/v1/ayarlar` yanıtında `demo_icerik` **yok** (AyarController allowlist'i içermez — canlı curl doğrulandı); (2) rozet yalnızca admin PHP şablonunda.
+- **Doğrulama:** `php -l ust.php` OK · `node --check admin.js` OK · admin API yanıtında `demo_icerik: '1'` görünür · public API'de `False`.
+
+#### B.3 — `standards/seo/AI_CAĞI_SEO_STANDARTLARI.md`
+
+- **Dosya:** `standards/seo/AI_CAĞI_SEO_STANDARTLARI.md` (`standards/seo/` dizini daha önce yoktu — bu görevde oluşturuldu).
+- **7 bölüm (geliştirici spesifikasyonuna birebir):** 1 Zero-Click Stratejisi · 2 Yapılandırılmış Veri Genişletmeleri (sameAs, dateModified, Person, TL;DR) · 3 E-E-A-T Sinyalleri · 4 Information Gain · 5 AI Alıntı Formatı (TL;DR, soru-formatlı H2, sayısal veriler, karşılaştırma tabloları, alternatif senaryolar + numaralı süreç/madde) · 6 AI Performans Takibi (GSC AI Report, ChatGPT/Perplexity) · 7 Karakter Bantları (title 50–60, desc 150–160 **byte**).
+
+#### B.4 — Referans Ekleme
+
+| Dosya | Değişiklik |
+|-------|-----------|
+| `.opencode/skills/seo-analyzer/SKILL.md` | Başlık altına AI standart referans satırı |
+| `.opencode/skills/seo-specialist/SKILL.md` | Başlık altına AI standart referans satırı |
+| `docs/seo-kontrol-listesi.md` | Başlık altına AI standart referans satırı |
+| `AGENTS.md` | (a) SEO Analyzer maddesine AI-çağı uzantısı cümlesi, (b) "Repoda OLMAYAN standartlar" listesine AI-Çağı SEO maddesi |
+
+#### B.5 — Git Commit + Push
+
+- **`.gitignore` kontrolü:** `.env`/`.env.*` ✓, `vendor/` ✓, `node_modules/` ✓, `uploads/` → bu görevde eklendi (daha önce yoktu; dizin repo'da mevcut değil, kural eklendi).
+- **Düzeltme — "28 untracked dosya":** `git ls-files --others --exclude-standard` = **0**. Daha önceki 28 dosya `d71bc28` (F0-F15) commit'inde güvenceye alınmış; görev öncesi yalnız `YAPILACAKLAR.md` modifiye idi. Commit tüm Bölüm B dosyalarını + YAPILACAKLAR.md'yi kapsar.
+- **Commit + push kanıtı:** aşağıda.

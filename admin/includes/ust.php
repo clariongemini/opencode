@@ -14,3 +14,5 @@ declare(strict_types=1);
   <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
+  <!-- B.2 demo içerik rozeti — yalnızca admin; ayarlar.demo_icerik=1 ise admin.js açar. -->
+  <span id="demo-icerik-rozet" class="rozet demo-rozet" hidden>⚠️ Demo İçerik</span>

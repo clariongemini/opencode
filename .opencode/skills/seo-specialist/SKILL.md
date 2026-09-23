@@ -9,6 +9,8 @@ description: >-
 
 # SEO Uzmanı Skill
 
+> Bu standartlar hem web hem AI için geçerlidir → detay: `standards/seo/AI_CAĞI_SEO_STANDARTLARI.md` [EK-20260923]
+
 Kaynak: APP-FABRIKA `governance/market/` (DEMAND_INTELLIGENCE_SYSTEM, MARKET_DEMAND_RESEARCH, QUARTERLY_GROWTH_SCORECARD), `governance/linguistic/DEPARTMENT_CHARTER.md`, `05-templates/web-app/BLUEPRINT.md` (opencode'a uyarlandı)
 
 ## Repodan alınan standartlar
