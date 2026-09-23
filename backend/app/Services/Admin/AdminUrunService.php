@@ -6,6 +6,7 @@ namespace Kamelya\Services\Admin;
 
 use Kamelya\Core\Hata;
 use Kamelya\Core\Slug;
+use Kamelya\Repositories\Admin\ResimYonetimRepository;
 use Kamelya\Repositories\Admin\UrunYonetimRepository;
 use Kamelya\Repositories\KategoriRepository;
 use Kamelya\Services\AuditLogService;

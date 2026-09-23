@@ -46,9 +46,12 @@ $aciklamaSeo = mb_strlen($kisa) >= 120 ? $kisa : trim($kisa . ' ' . ($BILGI[$dil
 $ozetYanit = apiGet('/yorumlar/ozet', $dil, ['urun_id' => (string) $bulunan['id']]);
 $derecelendirme = is_array($ozetYanit) && isset($ozetYanit['data']) && is_array($ozetYanit['data']) ? $ozetYanit['data'] : null;
 
+// SEO meta: DB bandlı alanları tercih et (50-60 / 150-160 byte); yoksa eski türev.
+$seoBaslik = trim((string) ($bulunan['seo_baslik'] ?? ''));
+$seoAciklama = trim((string) ($bulunan['seo_aciklama'] ?? ''));
 $SEO = [
-    'baslik' => $bulunan['baslik'] . ' — Kamelya',
-    'aciklama' => kisaAciklama($aciklamaSeo, 160),
+    'baslik' => $seoBaslik !== '' ? $seoBaslik : $bulunan['baslik'] . ' — Kamelya',
+    'aciklama' => $seoAciklama !== '' ? $seoAciklama : kisaAciklama($aciklamaSeo, 160),
     'yol' => $MEVCUT_YOL,
     'jsonld' => jsonldUrun($bulunan, $dil, $derecelendirme),
 ];

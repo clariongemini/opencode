@@ -38,7 +38,7 @@
     <label class="etiket" for="u-korkuluk-yukseklik">Korkuluk Yükseklik (cm)</label>
     <input class="input" id="u-korkuluk-yukseklik" type="number" min="0" max="300">
   </div>
-  <p><small>Çatı/korkuluk açıklamaları dil sekmelerindedir.</small></p>
+  <p><small>Çatı/korkuluk açıklamaları dil sekmelerindedir. Bu alanlar detaylı açıklamadaki ilgili bölümü de etkiler (F16.6 auto-merge planlanıyor).</small></p>
   <div class="form-alan">
     <label class="etiket" for="u-video">Video URL (YouTube/Vimeo/Instagram, https)</label>
     <input class="input" id="u-video" maxlength="500" placeholder="https://...">
