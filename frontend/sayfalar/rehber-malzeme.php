@@ -15,9 +15,38 @@ $TABLO = [
 
 $satirlar = $TABLO[$dil] ?? $TABLO['tr'];
 
+/** seo meta — 6 dil, byte bantlı (title 50–60 / desc 150–160). F16.2.9. */
+$SEO_HAM = [
+    'tr' => [
+        'Ahşap, Alüminyum, Kompozit Malzeme Farkı | Kamelya',
+        'Ahşap, alüminyum ve kompozit karşılaştırması: bakım sıklığı, dayanım, fiyat çarpanı ve iklim uyumu hangi malzemenin size uyar net gösterir.',
+    ],
+    'en' => [
+        'Wood vs Aluminium vs Composite: Material Guide | Kamelya',
+        'Wood, aluminium and composite comparison: upkeep frequency, durability, price multiplier and climate fit — a clear guide to the right gazebo material.',
+    ],
+    'de' => [
+        'Holz, Aluminium, Verbund im Materialvergleich | Kamelya',
+        'Vergleich Holz, Aluminium und Verbund: Pflegeintervall, Haltbarkeit, Preisfaktor und Klimaeignung — klare Orientierung für das passende Material. Details.',
+    ],
+    'fr' => [
+        'Comparatif matériaux : bois, alu, composite | Kamelya',
+        'Comparaison bois, aluminium et composite : fréquence d’entretien, durabilité, facteur de prix et adéquation climatique — repère clair pour bien choisir.',
+    ],
+    'it' => [
+        'Confronto materiali: legno, alluminio, composito | Kamelya',
+        'Confronto tra legno, alluminio e composito: frequenza di manutenzione, durabilità, fattore di prezzo e adattamento climatico — guida chiara per scegliere.',
+    ],
+    'ar' => [
+        'مقارنة: خشب وألومنيوم ومركب | Kamelya',
+        'مقارنة الخشب والألومنيوم والمركّب: تكرار الصيانة والمتانة ومعامل السعر والملاءمة.',
+    ],
+];
+$seoHam = $SEO_HAM[$dil] ?? $SEO_HAM['tr'];
+
 $SEO = [
-    'baslik' => t('malzeme_baslik') . ' — Kamelya',
-    'aciklama' => t('malzeme_baslik') . ': ' . $satirlar[0][0] . ' / ' . $satirlar[1][0] . ' / ' . $satirlar[2][0],
+    'baslik' => $seoHam[0],
+    'aciklama' => $seoHam[1],
     'yol' => $MEVCUT_YOL,
 ];
 ?>

@@ -189,9 +189,10 @@ final class SeoService
     /** @return array<string, mixed> */
     private function bantKontrol(string $alan, string $deger, int $min, int $maks): array
     {
-        $uzunluk = mb_strlen($deger);
+        // AI_CAĞI SEO §7: UTF-8 byte bandı (mb_strlen değil).
+        $uzunluk = strlen($deger);
         $durum = ($uzunluk >= $min && $uzunluk <= $maks) ? 'PASS' : 'FAIL';
 
-        return ['alan' => $alan, 'durum' => $durum, 'deger' => $uzunluk . ' karakter (bant ' . $min . '-' . $maks . ')'];
+        return ['alan' => $alan, 'durum' => $durum, 'deger' => $uzunluk . ' byte (bant ' . $min . '-' . $maks . ')'];
     }
 }

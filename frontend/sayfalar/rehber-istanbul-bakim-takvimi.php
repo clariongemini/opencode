@@ -108,9 +108,38 @@ $ay = (int) $bugun->format('n');
 $yil = (int) $bugun->format('Y');
 $gun = (int) $bugun->format('j');
 
+/** seo meta — 6 dil, byte bantlı (title 50–60 / desc 150–160). F16.2.9. */
+$SEO_HAM = [
+    'tr' => [
+        'İstanbul Kamelya Bakım Takvimi: 12 Aylık Plan | Kamelya',
+        'İstanbul iklimine özel 12 aylık kamelya bakım takvimi: kar kontrolü, ilkbahar yıkama, boya penceresi, sonbahar oluk temizliği ve bakım sayacı.',
+    ],
+    'en' => [
+        'Istanbul Gazebo Care Calendar: 12-Month Plan | Kamelya',
+        'A 12-month Istanbul gazebo care calendar shaped by local weather: snow checks, spring wash, paint window, autumn gutter clean and a next-service countdown.',
+    ],
+    'de' => [
+        'Istanbul Kamelie Pflegekalender: 12 Monate | Kamelya',
+        '12-Monats-Pflegekalender für Istanbul nach lokalem Klima: Schneekontrolle, Frühjahrswäsche, Lasurfenster, Herbst-Dachrinnenreinigung und Terminanzeige.',
+    ],
+    'fr' => [
+        'Calendrier entretien kamélia Istanbul : 12 mois | Kamelya',
+        'Calendrier d’entretien sur 12 mois pour Istanbul selon le climat : contrôle neige, lavage printanier, vernis, gouttières d’automne et compte à rebours.',
+    ],
+    'it' => [
+        'Calendario manutenzione kamelya Istanbul: 12 mesi | Kamelya',
+        'Calendario di manutenzione di 12 mesi per Istanbul sul clima locale: controllo neve, lavaggio primaverile, finestra vernice, grondaie e conto alla rovescia.',
+    ],
+    'ar' => [
+        'تقويم صيانة الكاميليا | Kamelya',
+        'تقويم إسطنبول للكاميليا: فحص الثلج والغسيل والورنيش وتنظيف المزاريب شهرياً لعام 2026.',
+    ],
+];
+$seoHam = $SEO_HAM[$dil] ?? $SEO_HAM['tr'];
+
 $SEO = [
-    'baslik' => t('istanbul_bakim_baslik') . ' — Kamelya',
-    'aciklama' => 'İstanbul iklimine özel kamelya/çardak aylık bakım takvimi ve sonraki bakım sayacı.',
+    'baslik' => $seoHam[0],
+    'aciklama' => $seoHam[1],
     'yol' => $MEVCUT_YOL,
 ];
 ?>
@@ -120,7 +149,7 @@ $SEO = [
 
 <div class="kart" style="margin-bottom:1.5rem;">
   <h2><?= htmlspecialchars(t('sonraki_bakim'), ENT_QUOTES, 'UTF-8') ?></h2>
-  <div id="sayac" data-hedef="<?= $yil . '-' . str_pad($ay, 2, '0', STR_PAD_LEFT) . '-' . str_pad(min($gun + 7, 28), 2, '0', STR_PAD_LEFT) ?>T09:00:00"></div>
+  <div id="sayac" data-hedef="<?= $yil . '-' . str_pad((string) $ay, 2, '0', STR_PAD_LEFT) . '-' . str_pad((string) min($gun + 7, 28), 2, '0', STR_PAD_LEFT) ?>T09:00:00"></div>
   <p class="yardim"><?= htmlspecialchars(t('sayac_aciklama'), ENT_QUOTES, 'UTF-8') ?></p>
 </div>
 

@@ -33,9 +33,38 @@ $SATIRLAR = [
 
 $satirlar = $SATIRLAR[$dil] ?? $SATIRLAR['tr'];
 
+/** seo meta — 6 dil, byte bantlı (title 50–60 / desc 150–160). F16.2.9. */
+$SEO_HAM = [
+    'tr' => [
+        'Çardak ve Pergola Farkı: Yapı, İzin, Kullanım | Kamelya',
+        'Çardak ve pergola farkları: yapı tipi, dört mevsim kullanım, yalıtım, ruhsat ihtiyacı ve uygulama alanları tek tabloda net karşılaştırılır.',
+    ],
+    'en' => [
+        'Gazebo vs Pergola: Structure, Permit, Everyday Use | Kamelya',
+        'Gazebo and pergola differences: structure type, four-season use, insulation, permit needs and where each fits — compared in one clear comparison table.',
+    ],
+    'de' => [
+        'Pavillon oder Pergola: Aufbau, Genehmigung | Kamelya',
+        'Unterschied Pavillon und Pergola: Bauart, ganzjährige Nutzung, Isolierung, Genehmigungsbedarf und Einsatzbereiche — klar in einer übersichtlichen Tabelle.',
+    ],
+    'fr' => [
+        'Kiosque ou pergola : structure, permis, usage | Kamelya',
+        'Différences kiosque et pergola : type de structure, usage quatre saisons, isolation, besoin de permis et usages — comparés en un tableau clair et lisible.',
+    ],
+    'it' => [
+        'Gazebo o pergola: struttura, permesso, uso | Kamelya',
+        'Differenze tra gazebo e pergola: tipo di struttura, uso quattro stagioni, isolamento, necessità di permesso e ambienti — a confronto in tabella chiara.',
+    ],
+    'ar' => [
+        'كوشة أم بيرغولا: الفرق | Kamelya',
+        'الفرق بين الكوشة والبيرغولا: نوع البناء والاستخدام طوال الفصول والعزل والحاجة للتصريح.',
+    ],
+];
+$seoHam = $SEO_HAM[$dil] ?? $SEO_HAM['tr'];
+
 $SEO = [
-    'baslik' => t('fark_baslik') . ' — Kamelya',
-    'aciklama' => 'Çardak ve pergola farkları: yapı, kullanım, maliyet, izin ve uygulama alanları karşılaştırma tablosu.',
+    'baslik' => $seoHam[0],
+    'aciklama' => $seoHam[1],
     'yol' => $MEVCUT_YOL,
 ];
 ?>

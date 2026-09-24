@@ -15,9 +15,38 @@ $METIN = [
 
 $paragraflar = $METIN[$dil] ?? $METIN['tr'];
 
+/** seo meta — 6 dil, byte bantlı (title 50–60 / desc 150–160). F16.2.9. */
+$SEO_HAM = [
+    'tr' => [
+        'Kamelya Bakım Rehberi: Temizlik, Boya, Küf | Kamelya',
+        'Kamelya bakım rehberi: ilkbahar ve sonbahar yıkama, iki yılda bir boya, küf ve nem kontrolü, alüminyum ve kompozit için düşük bakım adımları.',
+    ],
+    'en' => [
+        'Gazebo Care Guide: Seasonal Wash, Paint, Mold | Kamelya',
+        'Gazebo care guide: spring and autumn washes, paint every two years, mold and moisture checks, plus low-maintenance steps for aluminium and composite builds.',
+    ],
+    'de' => [
+        'Kamelya Pflege: Waschen, Lasur, Schimmel | Kamelya',
+        'Kamelya Pflegeanleitung: Frühjahrs- und Herbstwäsche, Lasur alle zwei Jahre, Schimmel- und Feuchtecheck, Pflegetipps für Aluminium und Verbundstoff.',
+    ],
+    'fr' => [
+        'Guide entretien kamélia : lavage, vernis | Kamelya',
+        'Guide d’entretien kamélia : lavages de printemps et d’automne, vernis tous les deux ans, contrôle humidité et moisissures, entretien alu et composite.',
+    ],
+    'it' => [
+        'Guida manutenzione kamelya: lavaggio, muffa | Kamelya',
+        'Guida alla manutenzione kamelya: lavaggi primavera e autunno, vernice ogni due anni, controllo umidità e muffa, cura alluminio e composito anche inverno.',
+    ],
+    'ar' => [
+        'دليل صيانة الكاميليا 2026 | Kamelya',
+        'دليل صيانة الكاميليا: غسيل الربيع والخريف وورنيش كل عامين مع فحص العفن والرطوبة وخطوات.',
+    ],
+];
+$seoHam = $SEO_HAM[$dil] ?? $SEO_HAM['tr'];
+
 $SEO = [
-    'baslik' => t('bakim_baslik') . ' — Kamelya',
-    'aciklama' => $paragraflar[0],
+    'baslik' => $seoHam[0],
+    'aciklama' => $seoHam[1],
     'yol' => $MEVCUT_YOL,
 ];
 ?>

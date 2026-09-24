@@ -58,6 +58,8 @@ $sayfa = match (true) {
     $ilk === 'sss' => 'sss',
     $ilk === 'rehberler' && $ikinci === 'bakim' => 'rehber-bakim',
     $ilk === 'rehberler' && $ikinci === 'malzeme-karsilastirma' => 'rehber-malzeme',
+    $ilk === 'rehberler' && $ikinci === 'fark' => 'rehber-fark',
+    $ilk === 'rehberler' && $ikinci === 'istanbul-bakim-takvimi' => 'rehber-istanbul-bakim-takvimi',
     $ilk === 'referanslar' => 'referanslar',
     $ilk === 'gizlilik' => 'gizlilik',
     $ilk === 'cerez-politikasi' => 'cerez-politikasi',
@@ -163,12 +165,13 @@ $GLOBALS['aramaApi'] = $AYAR['api_taban'];
 if ($sayfa === 'sitemap') {
     header('Content-Type: application/xml; charset=utf-8');
     $taban = rtrim($AYAR['site_taban'], '/');
-    $bolumler = ['', '/hakkimizda', '/atolye', '/urunler', '/galeri', '/blog', '/iletisim', '/teklif-al', '/sss', '/rehberler/bakim', '/rehberler/malzeme-karsilastirma', '/referanslar', '/gizlilik', '/cerez-politikasi', '/sertifikalar', '/ekibimiz', '/garanti', '/odeme-bilgileri', '/kampanyalar', '/sanal-tur', '/sicaklik-simulasyonu'];
+    $bolumler = ['', '/hakkimizda', '/atolye', '/urunler', '/galeri', '/blog', '/iletisim', '/teklif-al', '/sss', '/rehberler/bakim', '/rehberler/malzeme-karsilastirma', '/rehberler/fark', '/rehberler/istanbul-bakim-takvimi', '/referanslar', '/gizlilik', '/cerez-politikasi', '/sertifikalar', '/ekibimiz', '/garanti', '/odeme-bilgileri', '/kampanyalar', '/sanal-tur', '/sicaklik-simulasyonu'];
     $bolumAnahtar = [
         '' => 'anasayfa', '/hakkimizda' => 'hakkimizda', '/urunler' => 'urunler',
         '/galeri' => 'galeri', '/blog' => 'blog', '/iletisim' => 'iletisim',
         '/teklif-al' => 'teklif_formu', '/sss' => 'sss',
         '/rehberler/bakim' => 'bakim_rehberi', '/rehberler/malzeme-karsilastirma' => 'malzeme_rehberi',
+        '/rehberler/fark' => null, '/rehberler/istanbul-bakim-takvimi' => null,
         '/referanslar' => 'referanslar', '/gizlilik' => 'gizlilik', '/cerez-politikasi' => 'kvkk',
         '/sertifikalar' => 'sertifikasyon', '/ekibimiz' => 'ekip', '/garanti' => 'garanti',
         '/odeme-bilgileri' => null, '/kampanyalar' => 'kampanya',
@@ -227,6 +230,7 @@ $ozellikMap = [
     'sehir-landing' => null, 'sehirler' => null,
     'teklif-al' => 'teklif_formu', 'sss' => 'sss',
     'rehber-bakim' => 'bakim_rehberi', 'rehber-malzeme' => 'malzeme_rehberi',
+    'rehber-fark' => null, 'rehber-istanbul-bakim-takvimi' => null,
     'referanslar' => 'referanslar', 'gizlilik' => 'gizlilik',
     'cerez-politikasi' => 'kvkk', 'sertifikalar' => 'sertifikasyon',
     'ekibimiz' => 'ekip', 'garanti' => 'garanti',
