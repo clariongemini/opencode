@@ -1,7 +1,7 @@
 # YAPILACAKLAR — Kamelya
 
 **Kaynak prompt:** "Eksik Backend ve SEO Standartlarını Oluşturma ve Entegre Etme" (geliştirici görevi, 2026-09-20) — Kamelya birincil hedefi "kusursuz web sitesi, mükemmel backend, MVC API ve kendi içinde SEO analiz yapısı" için: (1) PHP/MySQL MVC API standart dosyası + `web-developer`/`database-administrator` entegrasyonu, (2) `seo-analyzer` yeteneği + `/denetle` entegrasyonu, (3) F0–F8 faz akışı güncellemesi (AGENTS.md + opencode.json). **Kısıt: Sadece altyapı ve standartlar; Kamelya uygulama kodu yazılmayacak.**
-**Durum:** initialized · 2026-09-22 — F16.1 tamamlandı, F16.2 İçerik Doldurma başlıyor
+**Durum:** active · 2026-09-24 — F16.1 `tamamlandı`; **F16.2 `işleniyor`** (F16.2.1–F16.2.3 `tamamlandı`; F16.2.4+ `bekliyor`); F16.3–F16.6 `bekliyor` · docs envanter: `docs/F16.2-durum-ve-eksikler.md`
 
 ## F0 — Zemin & Temel (tamamlandı)
 
@@ -1358,7 +1358,7 @@ Test artıkları silindi (tur/dönüşüm/video + dosyalar + audit); toggle'lar 
 | F15.5 | Admin: `kapasite_carpanlari` CRUD (ekle/listele/düzenle/pasifleştir) + 6 dil açıklama + admin panel sekmesi | overmind | architect | admin UI 200 + curl CRUD matrisi | tamamlandı |
 | F15.6 | `/denetle`: L1 (architect) + L2 (CAO) + SEO (seo-analyzer — API JSON + frontend render) PASS | overmind | architect | Denetim raporu + skor kartı | tamamlandı |
 
-## F16 — Production Launch & İlk SEO Döngüsü (bekliyor)
+## F16 — Production Launch & İlk SEO Döngüsü (F16.2 işleniyor; F16.1 tamamlandı; F16.3–F16.6 bekliyor)
 
 | # | Madde | Ajan | L1 | Kabul | Durum |
 |---|-------|------|----|-------|-------|
@@ -1367,6 +1367,14 @@ Test artıkları silindi (tur/dönüşüm/video + dosyalar + audit); toggle'lar 
 | F16.2.1 | Kategoriler: 12×6=72 çeviri + 72 SEO meta doğrulaması; admin GET `/api/v1/admin/kategoriler` (JWT: `yonetici`) → 200/12; SEO band ölçümü + F16.2.1-ek SEO band düzeltmesi | overmind | geliştirici (Bölüm A onayı) | DB count + curl kanıtı + SEO band 72/72 + geliştirici onayı (2026-09-23) | tamamlandı |
 | F16.2.2 | Ürünler — Bölüm C: 12 `urunler` + 12×6=72 çeviri + 72 SEO (`seo_verileri sayfa_tipi='urun'`, `urun_cevirileri.seo_*` ile birebir aynı) + `seo_anahtar_kelimeler` 3-5/dil; migration `2026_09_23_000039_urun_seed.php` (idempotent + `down`); fiyat = HesapService formülü (geliştirici 3 karar onayı 2026-09-23: tabloda 9/12 satır hatalı → formül sütunları geçerli); kapasite = DB F15 (3.50/1.80/2.80/1.20); `baslik` 40-70 byte + kullanım adı; içerik AI-Çağı standardı (TL;DR, H2 yapı, detaylı 400-600 kelime, kısa 40-60 kelime, çatı/korkuluk 150+); 2 grup (6+6 ürün) + grup sonu `/denetle` + rapor | overmind | geliştirici (Grup 1 + Grup 2 + refinement onayı) | DB count + band 100% + API/HTML curl + `docs/F16.2.2-urun-raporu.md` + onay | tamamlandı |
 | F16.2.3 | SSS: `sss_sorulari` + `sss_cevirileri` 6 dil; SEO title/desc bantlı; JSON-LD FAQ; admin API doğrulaması | overmind | geliştirici | DB count + band + API/HTML + rapor | tamamlandı |
+| [EK-20260924] F16.2.4 | Blog: `blog_yazilari` + `blog_yazisi_cevirileri` seed (geliştirici aded/konu onayı) × 6 dil + SEO band + admin CRUD doğrulama + `blog.php` HTML | overmind | geliştirici | DB count + band + API/HTML + rapor | bekliyor |
+| [EK-20260924] F16.2.5 | Şehirler: `sehir_cevirileri` (3 şehir × 6 dil) + SEO + `sehir-landing` içerik | overmind | geliştirici | DB count + band + HTML | bekliyor |
+| [EK-20260924] F16.2.6 | Sertifikalar: `sertifikalar` + `sertifika_cevirileri` seed × 6 dil + SEO + admin CRUD | overmind | geliştirici | DB count + band + API/HTML | bekliyor |
+| [EK-20260924] F16.2.7 | Ekip vitrini: `kullanicilar.ekip_mi=1` profiller (unvan/bio 6 dil) + `ekibimiz.php` | overmind | geliştirici | API total + HTML | bekliyor |
+| [EK-20260924] F16.2.8 | Garanti: `ayarlar` `garanti_suresi|garanti_kapsami|garanti_istisnalari` (+ site_adi) doldur; `garanti.php` kanıt | overmind | geliştirici | ayarlar SELECT + HTML | bekliyor |
+| [EK-20260924] F16.2.9 | Rehberler: **mimari karar** — 4 statik `rehber-*.php` koru vs DB’ye al; karar sonrası uygulama | overmind | geliştirici | karar kaydı + HTML/API | bekliyor |
+| [EK-20260924] F16.2.10 | Ayarlar/placeholder: gerçek IG/maps/sosyal + `demo_icerik` kapanış kriteri; görseller placeholder→gerçek | overmind | geliştirici | ayarlar + demo bayrak + sayfa | bekliyor |
+| [EK-20260924] F16.2.11 | F16.2 kapanış: tüm modül sayım + SEO band + `/denetle` (L1+L2+seo-analyzer) + `docs/seo-kontrol-listesi.md` içerik maddesi + F16.2 `tamamlandı` | overmind | architect | denetim raporu | bekliyor |
 | F16.3 | GSC (Google Search Console) kurulumu: Sahiplik doğrulama (DNS/HTML), sitemap.xml gönderimi, robots.txt doğrulama, `seo_analitik_verileri` cache senkronizasyonu (scripts/gsc-senkronize.php cron), Search Analytics veri akışı doğrulama | overmind | architect | GSC panel screenshot + API yanıtı + cron log | bekliyor |
 | F16.4 | Production deploy & Go-live: Blue-green / rolling deploy, DNS切り替え, SSL (Let's Encrypt / cert-manager), HSTS, CSP production modu, FORCE_HTTPS=true, JWT_GIZLI_ANAHTAR rotasyon, SMTP prod, monitoring (uptime + log aggregation), KVKK çerez politikası canlı | overmind | architect | curl 200 (canlı) + Lighthouse CI + uptime log | bekliyor |
 | F16.5 | Go-live sonrası doğrulama (T+0): Tüm public sayfalar 200, API uçları sözleşmeli, hesaplama aracı → lead → randevu akışı E2E, GA4/Clarity event'leri tetikleniyor, hreflang/canonical/JSON-LD canlı, PWA offline çalışıyor | overmind | architect | Playwright E2E kanıtı + GA4 Realtime | bekliyor |
@@ -1386,6 +1394,7 @@ Test artıkları silindi (tur/dönüşüm/video + dosyalar + audit); toggle'lar 
 | 2026-09-23 | F16.2.2 **Grup 2** (MOD-007…MOD-012, 6×6) migration'a eklendi (splice, 2350 satır): BAND OK 36/36 → gocler sil → up + idempotent 2.up=0 → DB **12/72/72** slug_dup=0; band-kontrol `Ürün:12 Çeviri:72 TUM BANTLAR UYUMLU`; DB PHP kelimeSay hata=0; public list 6 dil×12, detay 12/12, admin 12, HTML 12 TR+6 dil 200; `urun-detay.php` meta `seo_baslik`/`seo_aciklama` tercihi (desc 178→159 PASS); rapor §10 + öz-denetim PASS → **geliştirici Grup 2 onayı verildi** (2026-09-23) | F16 | tamamlandı |
 | 2026-09-23 | F16.2.2-ek **refinement** (3 karar onayı 2026-09-23): (1) H2 Seçenek A — çatı/korkuluk detaylıya birebir eklendi + admin form notu `urun-form.php:41` (F16.6 auto-merge); (2) EN quality pass **12/12** native rewrite (kisa/detay/cati/kork/seob/seod, USD formülü, Seçenek A dil düzeltmeleri); (3) soru-H2 transform TR+EN 12×6=72 occurrence (Kimler/Neden değişmez). Seed içi transform → migration 4077 satır `php -l` ✓ → gocler sil → up + 2.up=0 → band-kontrol `TUM BANTLAR UYUMLU` → gate `GATE=PASS` → DB_GATE fails=0 (detay TR 567-586 / EN 536-543, cati/kork ≥150, seob/seod band, glued/dbl/cutParen=0, yasak=0). Rapor **§11** yazıldı → **geliştirici MOD-007 ONAYLANDI** → 2 fix (TR kisa casing id37-42, EN seob ≥52B id31/34/35/37/38/41/42) → re-migrate + gate PASS → tek commit → F16.2.3 `işleniyor` | F16 | tamamlandı |
 | 2026-09-23 | **F16.2.3 SSS tamamlandı:** 40 soru × 6 dil = 240 çeviri; migration `2026_09_23_000040_sss_seed.php` (1370 satır); Fix1 multi 93→0 + Kontrol1 (14/20/6) + band 240/240; public API `GET /sss-sorulari` total=40; §3.3 `frontend/sayfalar/sss.php` DB-driven + 8 sekme + FAQPage JSON-LD 40 + anasayfa 3 gerçek SSS; HTML 6 dil 200 + SEO bant 6/6; `/denetle` L1+L2 PASS; **geliştirici Q29 TR + Q39 EN KESİN ONAY** (Q29 EN 13561 notu keşif: ileride teknik kapsam gözden geçirmesi — onayı engellemez) | F16 | tamamlandı |
+| 2026-09-24 | **[EK-20260924] F16.2 docs + envanter:** `docs/F16.2-durum-ve-eksikler.md` yazıldı (DB exact COUNT + route + frontend kanıtı). Boş/kısmi: Blog 0/0 · Şehir çeviri 0 · Sertifika 0/0 · Ekip API total=0 · Garanti `ayarlar` anahtarları DB’de yok · Rehber statik · Ayarlar demo. Docs fix: admin kılavuz SSS 8 kapsam · api-dokumantasyonu public `GET /sss-sorulari` · seo-kontrol-listesi F16.2 notu · veritabani-semasi şehir/sertifika/ekip. Plan: F16.2.4–F16.2.11 satırları eklendi (`bekliyor`) · Durum/F16 başlığı düzeltildi | F16 | tamamlandı |
 
 ### F16.2.1 Detay Raporu — Kategoriler İçerik Doğrulaması (2026-09-22)
 

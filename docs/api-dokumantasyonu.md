@@ -15,6 +15,10 @@ Baz: `/api/v1`. Yanıt sözleşmesi: başarı `{success:true, data, meta?}` · h
 | GET | `/pricing?lang=` | Temel fiyat + çarpanlar |
 | GET | `/seo/check?url=&lang=` | Meta bant kontrolü + skor |
 | GET | `/dosyalar/{tip}/{ad}` | Güvenli dosya sunumu (traversal korumalı) |
+| GET | `/sss-sorulari?lang=` | SSS liste — 40 soru × 6 dil (rate 60/dk); F16.2.3 |
+| GET | `/blog?lang=&limit=` | Blog liste (yayında) |
+| GET | `/sehirler?lang=` · `/sehirler/{slug}` | Şehir listesi + landing |
+| GET | `/sertifikalar?lang=` · `/ekip?lang=` · `/ayarlar` | Sertifika / ekip vitrini / genel ayarlar |
 
 ## Auth (`/auth`)
 

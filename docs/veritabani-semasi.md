@@ -17,6 +17,10 @@ erDiagram
     talepler ||--o{ randevular : randevu
     blog_yazilari ||--o{ blog_yazisi_cevirileri : ceviri
     sss_sorulari ||--o{ sss_cevirileri : ceviri
+    sehirler ||--o{ sehir_cevirileri : ceviri
+    sehirler ||--o{ sehir_hizmet_bolgeleri : bolge
+    sertifikalar ||--o{ sertifika_cevirileri : ceviri
+    kullanicilar ||--o{ randevular : ekip_uyesi
     urun_fiyatlari { string dil_kodu PK decimal fiyat_m2 }
     fiyat_carpanlari { int kategori_id FK decimal carpan }
     seo_verileri { string sayfa_tipi int referans_id }

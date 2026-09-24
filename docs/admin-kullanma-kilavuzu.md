@@ -18,8 +18,9 @@
 
 - **Kategoriler:** tür filtresi; kod deseni `^[a-z0-9_]+$` (filtrelerle uyumlu olmalı).
 - **Blog:** durum taslak/yayında/arşiv; TR başlık + içerik zorunludur.
-- **SSS:** kapsam (genel/fiyatlama/bakım), sıra sayısı; listede sıra "değiştir" ile güncellenir;
-  Sil pasifleştirir.
+- **SSS:** kapsam (8): `fiyatlama|malzeme|bakim|montaj|garanti|teknik|kullanim|karsilastirma`
+  (`AdminSssService::KAPSAMLAR` — F16.2.3); sıra sayısı; listede sıra "değiştir" ile güncellenir;
+  Sil pasifleştirir. Public: `GET /api/v1/sss-sorulari?lang=` (6 dil × 40 soru).
 - **Galeri:** jpg/png/webp (5MB); başlık zorunludur; yüklenen ilk ürün görseli otomatik kapaktır.
 - **Ayarlar:** yalnızca listedeki anahtarlar yazılır (site adı, telefon, WhatsApp, varsayılan dil, sosyal).
 

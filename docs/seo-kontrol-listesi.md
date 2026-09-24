@@ -10,6 +10,7 @@
 - [x] Dinamik sitemap (78 URL) + robots sitemap referansı.
 - [x] RTL (`dir=rtl`, mantıksal CSS) AR'da doğrulandı.
 - [x] LCP ≤ 2.5s (lab); INP saha ölçümü `web-vitals` ile GA4'e akıyor.
-- [ ] İçerik girişi sonrası tekrar denetim (ürün/blog sayfaları gerçek metinle).
+- [ ] İçerik girişi sonrası tekrar denetim (ürün/SSS done F16.2.2–F16.2.3; **blog/şehir/sertifika/ekip/garanti/rehber bekliyor** → F16.2.11 kapanış).
 - [ ] GSC hesabı bağlanınca `gsc-senkronize` + kelime fırsatları döngüsü.
 - [ ] Marka-terim yoğunluğu sapması: içerik hacmi büyüdükçe doğal düşer; izlenir.
+- [ ] F16.2 envanter: `docs/F16.2-durum-ve-eksikler.md` (2026-09-24) — boş modüller F16.2.4–F16.2.11.
