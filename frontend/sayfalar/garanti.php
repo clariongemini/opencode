@@ -21,15 +21,42 @@ $coz = function ($anahtar) use ($veri, $dil) {
     return (string) $ham;
 };
 
-$sure = (string) ($veri['garanti_suresi'] ?? '');
-$kapsam = $coz('garanti_kapsami');
-$istisna = $coz('garanti_istisnalari');
+$sure = (string) $coz('garanti_suresi');
+$kapsam = (string) $coz('garanti_kapsami');
+$istisna = (string) $coz('garanti_istisnalari');
+
+/** seo meta — 6 dil, byte bantlı (title 50–60 / desc 150–160). F16.2.8. */
+$SEO_HAM = [
+    'tr' => [
+        'Garanti Koşulları — Süre, Kapsam, İstisnalar | Kamelya',
+        'Kamelya garanti koşulları: 5 yıl süre, taşıyıcı iskelet ve montaj işçiliği kapsamı, afet ve kullanıcı hatası istisnaları ayrıca listelenir.',
+    ],
+    'en' => [
+        'Warranty Terms — Duration, Coverage, Exclusions | Kamelya',
+        'Kamelya warranty terms: 5-year duration, load-bearing frame, roof, railing and installation coverage; natural disaster and misuse exclusions listed clearly.',
+    ],
+    'de' => [
+        'Garantie — Dauer, Umfang, Ausschlüsse | Kamelya',
+        'Kamelya Garantie: 5 Jahre Laufzeit, tragendes Gerüst, Dacheindeckung, Geländer und Montage im Umfang; Naturkatastrophen und Fehlgebrauch ausgenommen.',
+    ],
+    'fr' => [
+        'Garantie — Durée, couverture, exclusions | Kamelya',
+        'Garantie Kamelya : durée de 5 ans, structure porteuse, couverture de toit, garde-corps et pose inclus ; catastrophes naturelles et mauvais usage exclus.',
+    ],
+    'it' => [
+        'Garanzia — Durata, copertura, esclusioni | Kamelya',
+        'Garanzia Kamelya: durata 5 anni, struttura portante, copertura del tetto, ringhiera e posa inclusi; calamità naturali e uso improprio esclusi dalla copertura.',
+    ],
+    'ar' => [
+        'ضمان كاميليا: المدة والتغطية',
+        'ضمان كاميليا: 5 سنوات تشمل الهيكل والسقف والتركيب؛ ويستثني الكوارث والاستخدام الخاطئ.',
+    ],
+];
+$seoHam = $SEO_HAM[$dil] ?? $SEO_HAM['tr'];
 
 $SEO = [
-    'baslik' => 'Garanti Koşulları — Süre, Kapsam ve İstisnalar — Kamelya',
-    'aciklama' => $kapsam !== ''
-        ? 'Kamelya garanti koşulları: süre, kapsam ve istisnalar. ' . kisaAciklama($kapsam, 100)
-        : 'Kamelya garanti koşulları: süre, kapsam ve istisnalar hakkında detaylı bilgi. Sertifikalı üretim ve açık garanti taahhüdü. Sorularınız için bize ulaşın.',
+    'baslik' => $seoHam[0],
+    'aciklama' => $seoHam[1],
     'yol' => $MEVCUT_YOL,
 ];
 ?>
