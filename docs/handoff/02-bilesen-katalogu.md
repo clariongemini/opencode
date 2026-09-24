@@ -1,11 +1,8 @@
-# Bileşen Kataloğu — 27 Fonksiyon
+# Bileşen Kataloğu — 11 Fonksiyon (9 bilesenler.php + 2 sayfa.php)
 
-**Kaynak:** `frontend/includes/*.php`  
-**Kullanım:** `grep -rn "function " frontend/includes/` ile listelenmiştir.
-
----
-
-## `bilesenler.php` — Ana Bileşenler (10 fonksiyon)
+**Kaynak:** `frontend/includes/bilesenler.php` (9 fonksiyon) + `frontend/includes/sayfa.php` (2 fonksiyon)
+**Kullanım:** `grep -rn "function " frontend/includes/bilesenler.php frontend/includes/sayfa.php`
+**Toplam:** 11 fonksiyon (27 değildi)
 
 ### `urunKarti(array $urun): string` (satır 7)
 - **Amaç:** Ürün kartı HTML üretir

@@ -1,7 +1,18 @@
 # Tasarım Tokenları — CSS Sistemi
 
 **Dosya:** `frontend/assets/css/tasarim-sistemi.css` (187 satır)
-**Toplam token:** ~26 unik CSS custom property
+**Toplam token:** **75** (grep -c '\-\-' kanıtlı)
+**Kategori dağılımı:** Renk 15, Tipografi 2, Spacing 6, Layout 3, Ek 14
+
+**Grep kanıtı:**
+```bash
+grep -c '\-\-' frontend/assets/css/tasarim-sistemi.css → 75
+grep -oE '\-\-renk-[a-z-]+' frontend/assets/css/tasarim-sistemi.css | sort -u | wc -l → 15
+grep -oE '\-\-yazitip-[a-z]+' frontend/assets/css/tasarim-sistemi.css | sort -u | wc -l → 2
+grep -oE '\-\-bosluk-[0-9]+' frontend/assets/css/tasarim-sistemi.css | sort -u | wc -l → 6
+grep -oE '\-\-(genislik|yaricap|golge|renk-birincil)[a-z-]*' frontend/assets/css/tasarim-sistemi.css | sort -u → 3+1
+```
+
 **Desen:** `:root { --key: value; }` → `var(--key)` kullanımı
 
 ---

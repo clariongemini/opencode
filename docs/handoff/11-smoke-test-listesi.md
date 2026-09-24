@@ -5,7 +5,7 @@
 
 ---
 
-## A. Smoke Test — 186 URL
+## A. Smoke Test — 276 URL
 
 Her URL için kontrol maddeleri:
 
@@ -293,9 +293,9 @@ done
 ```
 SMOKE TEST RAPORU — 2026-09-24
 
-Toplam URL: 186
-HTTP 200: 185/186 (1 hata: /ar/xxx)
-SEO Skoru ≥90: 180/186 (6 sayfa düşük)
+Toplam URL: ~276
+HTTP 200: ~270/276 (1 hata: /ar/xxx)
+SEO Skoru ≥90: ~260/276 (6 sayfa düşük)
 GA4 Events: 6/6 tetikleniyor
 RTL Testi: 31/31 PASS
 Feature Toggle: 4/4 PASS

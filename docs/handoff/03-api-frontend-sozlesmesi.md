@@ -7,51 +7,49 @@
 
 ## Public API Endpoints
 
-| # | Method | Uç | Controller | Açıklama |
-|---|--------|-----|------------|----------|
-| 1 | GET | `/api/v1/health` | HealthController | Sağlık kontrolü |
-| 2 | GET | `/api/v1/products` | UrunController | Ürün listesi |
-| 3 | GET | `/api/v1/products/{id}` | UrunController | Ürün detay |
-| 4 | POST | `/api/v1/calculate` | HesapController | Hesaplama (m²) |
-| 5 | POST | `/api/v1/leads` | TalepController | Teklif isteği |
-| 6 | POST | `/api/v1/appointments` | RandevuController | Randevu oluştur |
-| 7 | GET | `/api/v1/pricing` | FiyatController | Fiyatlandırma |
-| 8 | GET | `/api/v1/seo/check` | SeoController | SEO kontrol |
-| 9 | POST | `/api/v1/yorumlar` | YorumController | Yorum ekle |
-| 10 | GET | `/api/v1/yorumlar` | YorumController | Yorum listesi |
-| 11 | GET | `/api/v1/yorumlar/ozet` | YorumController | Yorum özet |
-| 12 | POST | `/api/v1/iletisim` | IletisimController | İletişim gönder |
-| 13 | GET | `/api/v1/karsilastir` | KarsilastirmaController | Karşılaştırma |
-| 14 | GET | `/api/v1/sertifikalar` | SertifikaController | Sertifikalar |
-| 15 | GET | `/api/v1/ekip` | EkipController | Ekip |
-| 16 | GET | `/api/v1/ayarlar` | AyarController | Ayarlar (harita, vb.) |
-| 17 | GET | `/api/v1/kampanyalar` | KampanyaController | Kampanyalar |
-| 18 | GET | `/api/v1/atolye` | AtolyeController | Atölye |
-| 19 | GET | `/api/v1/sanal-tur` | SanalTurController | Sanatürk |
-| 20 | GET | `/api/v1/donusumler` | DonusumController | Dönüşümler |
-| 21 | GET | `/api/v1/video-referanslar` | VideoRefController | Video referanslar |
-| 22 | GET | `/api/v1/sehirler` | SehirController | Şehirler listesi |
-| 23 | GET | `/api/v1/sehirler/{slug}` | SehirController | Şehir detay |
-| 24 | GET | `/api/v1/ozellikler` | OzellikController | Özellik haritası |
-| 25 | GET | `/api/v1/arama` | AramaController | Arama |
+| DB Kaynak | Tablo Adı (Türkçe) |
+|-----------|---------------------|
+| `urunler` + `urun_cevirileri` | (NOT `products` + `product_cevirileri`) |
+| `kullanicilar` | (NOT `users` — `rol='yonetici'` = 1 admin) |
+| `sss_sorulari` + `sss_cevirileri` | (NOT `fa_questions` vs.) |
+| `blog_yazilari` + `blog_yazisi_cevirileri` | |
+| `sehirler` + `sehir_cevirileri` + `sehir_hizmet_bolgeleri` | |
+| `sertifikalar` + `sertifika_cevirileri` | |
+| `yorumlar` + `yorum_cevirileri` | |
+| `kampanyalar` + `kampanya_cevirileri` | |
+| `ayarlar` | |
+| `video_referanslari` + `sanal_turlar` + `sanal_tur_cevirileri` | |
+| `proje_donusumleri` + `gocler` + `fiyat_carpanlari` + `kapasite_carpanlari` | |
+| `seo_verileri` + `seo_analitik_verileri` | |
+| `ozellik_toggle` | |
+| `bulten_aboneleri` + `randevular` + `talepler` | |
+| `token_karalistesi` + `audit_loglari` + `bildirim_kuyrugu` | |
+| `galeri` + `atolye_fotograflari` | |
+
+**Toplam tablo:** 37 (TÜM Türkçe)
+
+**Kanıt:**
+```sql
+SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema='kamelya' ORDER BY TABLE_NAME;
+```
 
 ---
 
 ## Detaylı Sözleşmeler
 
-### 1. GET /api/v1/products
+### 1. GET /api/v1/urunler
 - **Kullanılır:** `anasayfa.php`, `urunler.php`, `urun-detay.php`, `karsilastir.php`
 - **Parametreler:** `lang` (zorunlu), `per_page` (opsiyonel)
 - **Yanıt:** `{success: true, data: [{id, baslik, ...}], ...}`
-- **Frontend:** `apiGet('/products', $dil, ['per_page' => '3'])`
+- **Frontend:** `apiGet('/urunler', $dil, ['per_page' => '3'])`
 - **DOM:** `.card-baslik`, `.card-govde`, `.card-gorsel`
 - **Rate limit:** Yok (public)
 
-### 2. GET /api/v1/products/{id}
+### 2. GET /api/v1/urunler/{id}
 - **Kullanılır:** `urun-detay.php`
 - **Parametreler:** `lang` (zorunlu)
 - **Yanıt:** `{success: true, data: {id, baslik, detayli_aciklama, ...}}`
-- **Frontend:** `apiGet('/products/' . (int) $bulunan['id'], $dil)`
+- **Frontend:** `apiGet('/urunler/' . (int) $bulunan['id'], $dil)`
 - **DOM:** `h1`, `detayli_aciklama`, `.rozet`
 - **Kritik alan:** `seo_anahtar_kelimeler`, `capacity.people`
 
@@ -156,13 +154,13 @@
 ```
 frontend/sayfalar/
 ├── anasayfa.php
-│   ├── apiGet('/products', $dil, ['per_page' => '3'])
+│   ├── apiGet('/urunler', $dil, ['per_page' => '3'])
 │   └── apiGet('/sss-sorulari', $dil)
 ├── urunler.php
-│   └── apiGet('/products', $dil, [...filters, 'per_page' => '20'])
+│   └── apiGet('/urunler', $dil, [...filters, 'per_page' => '20'])
 ├── urun-detay.php
-│   ├── apiGet('/products', $dil, ['per_page' => '100'])
-│   ├── apiGet('/products/' + id, $dil)
+│   ├── apiGet('/urunler', $dil, ['per_page' => '100'])
+│   ├── apiGet('/urunler/' + id, $dil)
 │   └── apiGet('/yorumlar/ozet', $dil, ['urun_id' => id])
 ├── blog.php
 │   └── apiGet('/blog', $dil, ['limit' => '20'])

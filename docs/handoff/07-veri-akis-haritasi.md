@@ -22,12 +22,12 @@ Her sayfa türü için:
 ## 1. Anasayfa (Karma)
 
 ### DB Kaynak
-- `products` (öne çıkan: `per_page=3`)
+- `urunler` (öne çıkan: `per_page=3`)
 - `sss_sorulari` (SSS özet)
 - `seo_verileri` (sayfa_tipi='statik', sayfa_kodu='anasayfa')
 
 ### API Uçları
-- `GET /api/v1/products?lang=tr&per_page=3` → `oneCikan`
+- `GET /api/v1/urunler?lang=tr&per_page=3` → `oneCikan`
 - `GET /api/v1/sss-sorulari?lang=tr` → `sssYanit`
 
 ### Frontend Render
@@ -36,7 +36,7 @@ Her sayfa türü için:
 
 ### SEO
 - `seoMeta()` → `seo_verileri` (statik, anasayfa)
-- `jsonldOrganizasyon()` → Organization schema
+- `jsonldOrganizasyon()` → @graph (Organization + WebSite)
 
 ### JSON-LD
 - `Organization` — şirket bilgisi
@@ -52,12 +52,12 @@ Her sayfa türü için:
 ## 2. Ürünler Listesi
 
 ### DB Kaynak
-- `products` (liste)
-- `product_cevirileri` (dil çevirileri)
+- `urunler` (liste)
+- `urun_cevirileri` (dil çevirileri)
 - `seo_verileri`
 
 ### API Uçları
-- `GET /api/v1/products?lang=tr&per_page=20` → `$sonuc`
+- `GET /api/v1/urunler?lang=tr&per_page=20` → `$sonuc`
 
 ### Frontend Render
 - `frontend/sayfalar/urunler.php:33` + `:54`
@@ -73,13 +73,13 @@ Her sayfa türü için:
 ## 3. Ürün Detay
 
 ### DB Kaynak
-- `products` + `product_cevirileri` (detay)
+- `urunler` + `urun_cevirileri` (detay)
 - `yorumlar` + `yorum_cevirileri` (yorum özet)
 - `seo_verileri` (sayfa_tipi='urun', referans_id={id})
 
 ### API Uçları
-- `GET /api/v1/products?lang=tr&per_page=100` → `$liste` (ilgili ürünler)
-- `GET /api/v1/products/{id}?lang=tr` → `$detayYanit`
+- `GET /api/v1/urunler?lang=tr&per_page=100` → `$liste` (ilgili ürünler)
+- `GET /api/v1/urunler/{id}?lang=tr` → `$detayYanit`
 - `GET /api/v1/yorumlar/ozet?lang=tr&urun_id={id}` → `$ozetYanit`
 
 ### Frontend Render
@@ -158,7 +158,7 @@ Her sayfa türü için:
 ## 6. Şehir Landing (2 Desen × 3 Şehir)
 
 ### DB Kaynak
-- `sehirler` + `sehir_cevirileri` (sehirler tablosu)
+- `sehirler` + `sehir_cevirileri` (şehirler tablosu)
 - `seo_verileri` (sayfa_tipi='sehir', referans_id={id})
 
 ### API Uçları
@@ -200,11 +200,11 @@ Her sayfa türü için:
 ## 8. Ekip
 
 ### DB Kaynak
-- `ekip` + `ekip_cevirileri`
+- `kullanicilar (rol=yonetici)`
 - `seo_verileri`
 
 ### API Uçları
-- `GET /api/v1/ekip?lang=tr` → `$liste`
+- `GET /api/v1/kullanicilar?lang=tr` → `$liste`
 
 ### Frontend Render
 - `frontend/sayfalar/ekibimiz.php:7` + `:23`
@@ -395,7 +395,7 @@ Her sayfa türü için:
 ## 18. Arama Sonuçları
 
 ### DB Kaynak
-- `products` + `blog` + `sss` (çoklu tablo arama)
+- `urunler` + `blog` + `sss` (çoklu tablo arama)
 - `seo_verileri`
 
 ### API Uçları
@@ -414,12 +414,12 @@ Her sayfa türü için:
 
 | Tablo | API | Sayfa Türü |
 |-------|-----|------------|
-| `products` + `product_cevirileri` | `/api/v1/products` | urunler, urun-detay |
+| `urunler` + `urun_cevirileri` | `/api/v1/urunler` | urunler, urun-detay |
 | `sss_sorulari` + `sss_cevirileri` | `/api/v1/sss-sorulari` | sss, anasayfa |
 | `blog_yazilari` + `blog_yazisi_cevirileri` | `/api/v1/blog` | blog, blog-detay |
 | `sehirler` + `sehir_cevirileri` | `/api/v1/sehirler` | sehirler, sehir-landing |
 | `sertifikalar` + `sertifika_cevirileri` | `/api/v1/sertifikalar` | sertifikalar |
-| `ekip` + `ekip_cevirileri` | `/api/v1/ekip` | ekibimiz |
+| `kullanicilar (rol=yonetici)` | `/api/v1/kullanicilar` | ekibimiz |
 | `kampanyalar` + `kampanya_cevirileri` | `/api/v1/kampanyalar` | kampanyalar |
 | `ayarlar` | `/api/v1/ayarlar` | garanti, odeme-bilgileri, iletisim, sanal-tur, sicaklik |
 | `donusumler` + `donusum_cevirileri` | `/api/v1/donusumler` | referanslar |

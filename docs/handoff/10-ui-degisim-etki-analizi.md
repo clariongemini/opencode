@@ -9,13 +9,13 @@
 
 | Dosya | Etkilenen Sayfa Sayısı | Etkilenen URL | Test Gerekli |
 |-------|------------------------|---------------|--------------|
-| `frontend/includes/bilesenler.php` | 31 | ~186 | `grep -rn "bilesenler" frontend/sayfalar/ \| wc -l` |
-| `frontend/assets/css/tasarim-sistemi.css` | 31 | ~186 | CSS token change → tüm renk/spacing/font |
-| `frontend/includes/seo.php` | 31 | ~186 | `grep -rn "seoMeta\|jsonld" frontend/sayfalar/` |
-| `frontend/includes/api.php` | 31 | ~186 | `grep -rn "apiGet\|apiPost" frontend/sayfalar/` |
-| `frontend/includes/analytics.php` | 31 | ~186 | `grep -rn "analyticsKafa\|cerezBand" frontend/` |
-| `frontend/router.php` | 31 | ~186 | Tüm URL routing |
-| `frontend/lang/*.php` (6 dosya) | 31 | ~186 | `grep -rn "t('" frontend/sayfalar/ | wc -l` |
+| `frontend/includes/bilesenler.php` | 31 | ~276 | `grep -rn "bilesenler" frontend/sayfalar/ \| wc -l` |
+| `frontend/assets/css/tasarim-sistemi.css` | 31 | ~276 | CSS token change → tüm renk/spacing/font |
+| `frontend/includes/seo.php` | 31 | ~276 | `grep -rn "seoMeta\|jsonld" frontend/sayfalar/` |
+| `frontend/includes/api.php` | 31 | ~276 | `grep -rn "apiGet\|apiPost" frontend/sayfalar/` |
+| `frontend/includes/analytics.php` | 31 | ~276 | `grep -rn "analyticsKafa\|cerezBand" frontend/` |
+| `frontend/router.php` | 31 | ~276 | Tüm URL routing |
+| `frontend/lang/*.php` (6 dosya) | 31 | ~276 | `grep -rn "t('" frontend/sayfalar/ | wc -l` |
 
 ### Detaylı Etkiler
 
@@ -76,8 +76,8 @@ grep -rn "analyticsKafa\|cerezBand" frontend/
 
 | Dosya | Etkilenen Sayfa Sayısı | Etkilenen URL | Test Gerekli |
 |-------|------------------------|---------------|--------------|
-| `frontend/includes/sayfa.php` | 31 | ~186 | `sayfaUst()`, `sayfaAlt()` |
-| `frontend/assets/js/ana.js` | 31 | ~186 | nav, dil, events |
+| `frontend/includes/sayfa.php` | 31 | ~276 | `sayfaUst()`, `sayfaAlt()` |
+| `frontend/assets/js/ana.js` | 31 | ~276 | nav, dil, events |
 | `frontend/includes/bilesenler.php` (tek fonksiyon) | 3-5 | ~15 | `urunKarti()`, `sssAkordeon()`, `paylasButonlari()` |
 | `frontend/includes/seo.php` (tek jsonld) | 1-2 | ~3 | `jsonldUrun()`, `jsonldSss()` |
 | `frontend/assets/js/hesaplama-araci.js` | 2 | ~3 | anasayfa, sicaklik-simulasyonu |
@@ -126,7 +126,7 @@ grep -rn "analyticsKafa\|cerezBand" frontend/
 
 ## UI Değişim Sonrası Retest Kapsamı
 
-### 186 URL × Kontrol Maddeleri
+### 276 URL × Kontrol Maddeleri
 - [ ] HTTP 200
 - [ ] Title 50-60 byte
 - [ ] Description 150-160 byte

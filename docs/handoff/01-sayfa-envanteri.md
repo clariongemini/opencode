@@ -12,7 +12,7 @@
 - **Kapsam:** `<h1>` hero bölüm + featured ürünler + SSS özet + blog özet
 - **SEO kaynağı:** `seo_verileri` (sayfa_tipi='statik', sayfa_kodu='anasayfa')
 - **API çağrıları:**
-  - `GET /api/v1/products?lang=tr&per_page=3` → `oneCikan` (öne çıkan ürünler)
+  - `GET /api/v1/urunler?lang=tr&per_page=3` → `oneCikan` (öne çıkan ürünler)
   - `GET /api/v1/sss-sorulari?lang=tr` → `sssYanit` (SSS özet)
 - **JSON-LD:** `jsonldOrganizasyon()` (Organization schema)
 - **Ana bölümler:** Hero, Öne Çıkan Ürünler, SSS Özet, Blog Özet
@@ -30,7 +30,7 @@
 - **Kapsam:** Ürün listesi + filtreleme
 - **SEO kaynağı:** `seo_verileri` + `jsonld` ItemList
 - **API çağrıları:**
-  - `GET /api/v1/products?lang=tr&per_page=20` → `$sonuc` (liste)
+  - `GET /api/v1/urunler?lang=tr&per_page=20` → `$sonuc` (liste)
 - **Form:** GET form (filtreleme: `apiFiltre`)
 - **JS:** `ana.js` + `hesaplama-araci.js` (ürün hesaplama)
 - **Özellik toggle:** `etkinMi('urunler')`
@@ -44,8 +44,8 @@
 - **Kapsam:** Ürün detay + yorumlar + ilgili ürünler
 - **SEO kaynağı:** `seo_verileri` + `jsonldUrun()` (Product + AggregateRating)
 - **API çağrıları:**
-  - `GET /api/v1/products?lang=tr&per_page=100` → `$liste` (ilgili ürünler)
-  - `GET /api/v1/products/{id}?lang=tr` → `$detayYanit`
+  - `GET /api/v1/urunler?lang=tr&per_page=100` → `$liste` (ilgili ürünler)
+  - `GET /api/v1/urunler/{id}?lang=tr` → `$detayYanit`
   - `GET /api/v1/yorumlar/ozet?lang=tr&urun_id={id}` → `$ozetYanit`
 - **JSON-LD:** `jsonldUrun($bulunan, $dil, $derecelendirme)` — Product + AggregateRating
 - **Form:** Yorum formu (POST /api/v1/yorumlar)
@@ -187,18 +187,24 @@
 
 ---
 
-### odeme-bilgileri.php — Ödeme Bilgileri
-- **Dosya:** `frontend/sayfalar/odeme-bilgileri.php`
-- **URL:** `/odeme-bilgileri`
-- **Kapsam:** Ödeme yöntemleri
-- **SEO kaynağı:** `seo_verileri`
+### urun-detay.php — Ürün Detay
+- **Dosya:** `frontend/sayfalar/urun-detay.php`
+- **URL:** `/urun/{slug}` · `/tr/urun/kamelya-3x3` (router.php: `$ilk === 'urun' && $ikinci !== null => 'urun-detay'`)
+- **Kapsam:** Ürün detay + yorumlar + ilgili ürünler
+- **SEO kaynağı:** `seo_verileri` + `jsonldUrun()` (Product + AggregateRating)
 - **API çağrıları:**
-  - `GET /api/v1/ayarlar?lang=tr` → `$ayarlar`
-- **UI değişim risk:** DÜŞÜK
+  - `GET /api/v1/urunler?lang=tr&per_page=100` → `$liste` (ilgili ürünler)
+  - `GET /api/v1/urunler/{id}?lang=tr` → `$detayYanit` (id: `$bulunan['id']`)
+  - `GET /api/v1/yorumlar/ozet?lang=tr&urun_id={id}` → `$ozetYanit`
+- **JSON-LD:** `jsonldUrun($bulunan, $dil, $derecelendirme)` — Product + AggregateRating
+- **Form:** Yorum formu (POST `/api/v1/yorumlar`)
+- **JS:** `yorumlar.js` (modal + form)
+- **Özellik toggle:** `etkinMi('urunler')`
+- **UI değişim risk:** YÜKSEK (3 API çağrısı + JSON-LD)
 
 ---
 
-### kampanyalar.php — Kampanyalar
+### odeme-bilgileri.php — Ödeme Bilgileri
 - **Dosya:** `frontend/sayfalar/kampanyalar.php`
 - **URL:** `/kampanyalar`
 - **Kapsam:** Aktif kampanyalar

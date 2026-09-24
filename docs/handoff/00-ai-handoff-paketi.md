@@ -8,9 +8,9 @@
 
 ## 1. Özet
 
-- **Sistem:** 6 dil × 31 sayfa × ~186 URL
+- **Sistem:** 6 dil × 31 sayfa × ~276 URL
 - **Backend:** PHP/MySQL MVC (dokunulmaz — 45 migration, ~90 PHP sınıfı)
-- **Frontend:** 12 include + 31 sayfa + 10 JS + ~26 CSS token
+- **Frontend:** 12 include + 31 sayfa + 10 JS + **75** CSS token
 - **SEO:** 234 `seo_verileri` satırı (kaynak korunmalı)
 - **Analytics:** 6 GA4 event (korunmalı)
 - **RTL:** AR dili hazır (`margin-inline` kullanılıyor)
@@ -25,12 +25,12 @@
 3. `03-api-frontend-sozlesmesi.md` — API bağlantıları (13+ public uç)
 4. `04-js-davranislari.md` — JS davranışları (10 dosya)
 5. `05-form-akislari.md` — form akışları (6 form)
-6. `06-tasarim-tokenlari.md` — tasarım tokenları (~26 token)
+6. `06-tasarim-tokenlari.md` — tasarım tokenları (75 token)
 7. `07-veri-akis-haritasi.md` — DB → API → DOM (18 sayfa türü)
 8. `08-ui-bagimliliklar.md` — kritik bağımlılıklar (20+)
 9. `09-rtl-checklist.md` — AR dili kontrol listesi
 10. `10-ui-degisim-etki-analizi.md` — blast radius haritası
-11. `11-smoke-test-listesi.md` — UI sonrası retest listesi (186 URL)
+11. `11-smoke-test-listesi.md` — UI sonrası retest listesi (276 URL)
 12. `00-ai-handoff-paketi.md` — bu dosya
 
 ---
@@ -40,7 +40,7 @@
 | # | Uyarı | Neden |
 |---|-------|-------|
 | 1 | `frontend/includes/bilesenler.php` → 31 sayfa kullanıyor | Değiştirmeden önce tüm çağrı noktalarını gör |
-| 2 | `frontend/assets/css/tasarim-sistemi.css` ~26 token | Tüm renk/font buradan. Hardcoded renk YASAK |
+| 2 | `frontend/assets/css/tasarim-sistemi.css` 75 token | Tüm renk/font buradan. Hardcoded renk YASAK |
 | 3 | `apiGet`/`apiPost` fonksiyonları | Tüm API çağrıları bunlar üzerinden. Doğrudan fetch KULLANMA |
 | 4 | `seo_verileri` tablosu | Meta kaynağı. UI değişirse `$SEO_HAM` değişkenleri korunmalı |
 | 5 | `analytics.php` → `kamelyaOlay()` | GA4 event'leri buradan. UI değişiminde event kaybolmasın |
@@ -54,7 +54,7 @@
 
 ## 4. Değişim Sonrası Kontrol
 
-- [ ] 186 URL × smoke test listesi (`11-smoke-test-listesi.md`)
+- [ ] 276 URL × smoke test listesi (`11-smoke-test-listesi.md`)
 - [ ] SEO analyzer ≥90 her sayfa
 - [ ] GA4 6 event tetikleniyor
 - [ ] RTL testi (AR)
