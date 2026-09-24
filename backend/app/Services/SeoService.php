@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Kamelya\Services;
 
 use Kamelya\Core\Hata;
+use Kamelya\Repositories\BlogRepository;
 use Kamelya\Repositories\KategoriRepository;
 use Kamelya\Repositories\SeoAnalitikRepository;
 use Kamelya\Repositories\SeoVerisiRepository;
@@ -12,7 +13,7 @@ use Kamelya\Repositories\UrunRepository;
 
 /**
  * SEO köprüsü (seo-analyzer teknik denetim kanalı):
- * - Ürün/kategori/statik sayfalar için seo_verileri çözümleme.
+ * - Ürün/kategori/blog/statik sayfalar için seo_verileri çözümleme.
  * - /seo/check: URL → sayfa çözümleme + meta bant kontrolü (title 50–60,
  *   description 150–160, canonical, hreflang, kapak görseli).
  */
@@ -22,7 +23,8 @@ final class SeoService
         private SeoVerisiRepository $seo,
         private UrunRepository $urunler,
         private KategoriRepository $kategoriler,
-        private ?SeoAnalitikRepository $analitik = null
+        private ?SeoAnalitikRepository $analitik = null,
+        private ?BlogRepository $bloglar = null
     ) {
     }
 
@@ -155,6 +157,20 @@ final class SeoService
                 'baslik' => (string) $detay['baslik'],
                 'seo' => $seo ?? [],
                 'kapak' => $kapak,
+            ];
+        }
+
+        if (preg_match('#^/blog/([^/]+)$#', $yol, $eslesme) === 1 && $this->bloglar !== null) {
+            $yazi = $this->bloglar->slugIleGetir($dil, $eslesme[1]);
+            if ($yazi === null) {
+                return null;
+            }
+
+            return [
+                'sayfa' => ['tip' => 'blog', 'id' => (int) $yazi['id']],
+                'baslik' => (string) ($yazi['seo_baslik'] ?: $yazi['baslik']),
+                'seo' => $this->sayfaSeo('blog', $dil, (int) $yazi['id']) ?? [],
+                'kapak' => (string) ($yazi['kapak_resmi'] ?? ''),
             ];
         }
 

@@ -9,6 +9,7 @@ use Kamelya\Core\Diller;
 use Kamelya\Core\Hata;
 use Kamelya\Core\Request;
 use Kamelya\Core\Response;
+use Kamelya\Repositories\BlogRepository;
 use Kamelya\Repositories\KategoriRepository;
 use Kamelya\Repositories\SeoVerisiRepository;
 use Kamelya\Repositories\UrunRepository;
@@ -28,7 +29,9 @@ final class SeoController
         $this->service = new SeoService(
             new SeoVerisiRepository($pdo),
             new UrunRepository($pdo),
-            new KategoriRepository($pdo)
+            new KategoriRepository($pdo),
+            null,
+            new BlogRepository($pdo)
         );
     }
 

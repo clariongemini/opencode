@@ -20,9 +20,11 @@ if (!is_array($bulunan)) {
     return;
 }
 
+$seoBaslik = trim((string) ($bulunan['seo_baslik'] ?? ''));
+$seoAciklama = trim((string) ($bulunan['seo_aciklama'] ?? ''));
 $SEO = [
-    'baslik' => $bulunan['baslik'] . ' — Kamelya',
-    'aciklama' => kisaAciklama((string) ($bulunan['ozet'] ?? $bulunan['baslik']), 160),
+    'baslik' => $seoBaslik !== '' ? $seoBaslik : ($bulunan['baslik'] . ' — Kamelya'),
+    'aciklama' => $seoAciklama !== '' ? $seoAciklama : kisaAciklama((string) ($bulunan['ozet'] ?? $bulunan['baslik']), 160),
     'yol' => $MEVCUT_YOL,
     'jsonld' => jsonldMakale($bulunan),
     'og_turu' => 'article',

@@ -8,6 +8,7 @@ use Kamelya\Core\Database;
 use Kamelya\Core\Hata;
 use Kamelya\Core\Request;
 use Kamelya\Core\Response;
+use Kamelya\Repositories\BlogRepository;
 use Kamelya\Repositories\KategoriRepository;
 use Kamelya\Repositories\SeoAnalitikRepository;
 use Kamelya\Repositories\SeoVerisiRepository;
@@ -37,7 +38,8 @@ final class SeoDashboardController
             new SeoVerisiRepository($pdo),
             new UrunRepository($pdo),
             new KategoriRepository($pdo),
-            new SeoAnalitikRepository($pdo)
+            new SeoAnalitikRepository($pdo),
+            new BlogRepository($pdo)
         );
     }
 
