@@ -1383,6 +1383,7 @@ Test artıkları silindi (tur/dönüşüm/video + dosyalar + audit); toggle'lar 
 ## Keşifler & Dinamik Eklemeler
 | Tarih | Keşif | Faz | Durum |
 |-------|-------|-----|-------|
+| 2026-09-24 | Sistem audit (F16.2 sonrası): fresh deploy kırılır migration 000039 (kategori seed eksik) · `/sitemap.xml` 404 (Nginx routing) · `backend/.env.bak` gerçek sırlıydı (silindi) · `backend/._*` dosyaları temizlendi · 0 lint hatası, 0 orphan, 0 TODO, tüm FK temiz | F16 | tamamlandı |
 | 2026-09-24 | F16.2.4 şema normalizasyonu: `dil_kodu varchar(20)`→`varchar(5)` (14/14 tutarlı) · migration `000045` oluşturuldu · cycle up/down/up PASS · manuel ALTER kaydı temizlendi · `x-default` yalnızca JSON key (dil_kodu satırı yok) | F16 | tamamlandı |
 | 2026-09-22 | Kapasite hesaplama tasarımı onaylandı (seed: site_bahcesi 3.50, otel 2.80, restoran 1.80, belediye 1.20; migration 000036; F15 implementasyon) | F15 | kabul edildi |
 | 2026-09-22 | F15 Kapasite Hesaplama tamamlandı: Migration 000036 + Seed + Backend API (capacity objesi) + Admin CRUD + Frontend Widget + `/denetle` PASS | F15 | tamamlandı |
