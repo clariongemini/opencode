@@ -2,58 +2,160 @@
 
 declare(strict_types=1);
 
-/** SSS — akordeon + FAQPage JSON-LD (yapılandırılmış veri, kapsam satır 71). */
+/** SSS — DB-driven 40 soru (public API) + 8 kapsam filtresi + FAQPage JSON-LD. */
 
-$SSS = [
+$yanit = apiGet('/sss-sorulari', $dil);
+$olarak = is_array($yanit) ? ($yanit['data'] ?? []) : [];
+$sayi = is_array($yanit) ? (int) ($yanit['meta']['total'] ?? count($olarak)) : 0;
+
+/** @var array<string, string> $kapsamAdlari 8 kapsam — AdminSssService::KAPSAMLAR */
+$kapsamAdlari = [
+    'fiyatlama' => [
+        'tr' => 'Fiyatlama', 'en' => 'Pricing', 'de' => 'Preise', 'fr' => 'Prix', 'it' => 'Prezzi', 'ar' => 'الأسعار',
+    ],
+    'malzeme' => [
+        'tr' => 'Malzeme', 'en' => 'Materials', 'de' => 'Material', 'fr' => 'Matériaux', 'it' => 'Materiali', 'ar' => 'الخامات',
+    ],
+    'bakim' => [
+        'tr' => 'Bakım', 'en' => 'Care', 'de' => 'Pflege', 'fr' => 'Entretien', 'it' => 'Manutenzione', 'ar' => 'العناية',
+    ],
+    'montaj' => [
+        'tr' => 'Montaj', 'en' => 'Installation', 'de' => 'Montage', 'fr' => 'Pose', 'it' => 'Posa', 'ar' => 'التركيب',
+    ],
+    'garanti' => [
+        'tr' => 'Garanti', 'en' => 'Warranty', 'de' => 'Garantie', 'fr' => 'Garantie', 'it' => 'Garanzia', 'ar' => 'الضمان',
+    ],
+    'teknik' => [
+        'tr' => 'Teknik', 'en' => 'Technical', 'de' => 'Technik', 'fr' => 'Technique', 'it' => 'Tecnico', 'ar' => 'تقني',
+    ],
+    'kullanim' => [
+        'tr' => 'Kullanım', 'en' => 'Usage', 'de' => 'Verwendung', 'fr' => 'Usage', 'it' => 'Uso', 'ar' => 'الاستخدام',
+    ],
+    'karsilastirma' => [
+        'tr' => 'Karşılaştırma', 'en' => 'Comparison', 'de' => 'Vergleich', 'fr' => 'Comparaison', 'it' => 'Confronto', 'ar' => 'المقارنة',
+    ],
+];
+$kapsamlar = array_keys($kapsamAdlari);
+
+$bosMetin = [
+    'tr' => 'SSS hazırlanıyor — en kısa sürede burada olacak.',
+    'en' => 'FAQ is being prepared — it will appear here soon.',
+    'de' => 'FAQ wird vorbereitet — erscheint hier in Kürze.',
+    'fr' => 'La FAQ est en préparation — bientôt disponible ici.',
+    'it' => 'Le FAQ sono in preparazione — arriveranno qui a breve.',
+    'ar' => 'يجري تحضير الأسئلة الشائعة — ستظهر هنا قريباً.',
+];
+
+/** seo_verileri (statik/sss) — 6 dil, byte bantlı (title 50–60 / desc 150–160). */
+$SEO_HAM = [
     'tr' => [
-        ['soru' => 'Fiyat nasıl hesaplanıyor?', 'cevap' => 'Alan (m²) × dilinize özel başlangıç fiyatı × malzeme, model ve kullanım çarpanları. Hesaplama aracıyla anında görebilirsiniz.'],
-        ['soru' => 'Keşif ücretli mi?', 'cevap' => 'Hayır. Keşif ve ölçü alma tamamen ücretsizdir.'],
-        ['soru' => 'Montaj ne kadar sürer?', 'cevap' => 'Standart modellerde üretim ve montaj planı keşif sonrası netleşir; randevular Pzt–Cmt 09:00–18:00 arasındadır.'],
-        ['soru' => 'Garanti var mı?', 'cevap' => 'Evet. CE/TÜV/ISO belgeli üretim ve açık garanti koşulları sunuyoruz.'],
+        'Kamelya SSS: Fiyat, Malzeme, Bakım Soruları | Kamelya',
+        'Kamelya sık sorulan 40 soru: 2026 fiyat aralığı, malzeme karşılaştırma, bakım sıklığı, montaj süresi ve garanti hakkında net cevaplar. 6 dilde.',
     ],
     'en' => [
-        ['soru' => 'How is the price calculated?', 'cevap' => 'Area (m²) × starting price for your language × material, model and usage multipliers. See it instantly with the calculator.'],
-        ['soru' => 'Is the survey free?', 'cevap' => 'Yes. Survey and measuring are completely free.'],
-        ['soru' => 'How long does installation take?', 'cevap' => 'The production and installation plan is fixed after the survey; appointments run Mon–Sat 09:00–18:00.'],
-        ['soru' => 'Is there a warranty?', 'cevap' => 'Yes. CE/TÜV/ISO certified manufacturing with clear warranty terms.'],
+        'Kamelya FAQ: Price, Material, Care Answers | Kamelya',
+        'Frequently asked Kamelya questions: 2026 price range, material comparison, maintenance frequency, installation duration and warranty — clear answers.',
     ],
     'de' => [
-        ['soru' => 'Wie wird der Preis berechnet?', 'cevap' => 'Fläche (m²) × Startpreis Ihrer Sprache × Material-, Modell- und Verwendungsfaktoren. Sofort im Rechner sichtbar.'],
-        ['soru' => 'Ist die Beratung kostenlos?', 'cevap' => 'Ja. Beratung und Aufmaß sind völlig kostenlos.'],
-        ['soru' => 'Wie lange dauert die Montage?', 'cevap' => 'Fertigungs- und Montageplan werden nach der Beratung fixiert; Termine Mo–Sa 09:00–18:00 Uhr.'],
-        ['soru' => 'Gibt es eine Garantie?', 'cevap' => 'Ja. CE/TÜV/ISO-zertifizierte Fertigung mit klarer Garantie.'],
+        'Kamelya FAQ 2026: Preis, Material, Pflege | Kamelya',
+        'Häufige Fragen zu Kamelya: Preisspanne 2026, Materialvergleich, Pflegeintervall, Montagedauer und Garantie — klare Antworten in 6 Sprachen zusammen.',
     ],
     'fr' => [
-        ['soru' => 'Comment le prix est-il calculé ?', 'cevap' => 'Surface (m²) × prix de départ de votre langue × coefficients matériau, modèle et usage. Visible dans le calculateur.'],
-        ['soru' => 'La visite est-elle gratuite ?', 'cevap' => 'Oui. Visite et métré entièrement gratuits.'],
-        ['soru' => 'Combien dure la pose ?', 'cevap' => 'Le plan de fabrication et pose est fixé après la visite ; rendez-vous Lun–Sam 09h00–18h00.'],
-        ['soru' => 'Y a-t-il une garantie ?', 'cevap' => 'Oui. Fabrication certifiée CE/TÜV/ISO avec garantie claire.'],
+        'Kamelya FAQ 2026 : Prix, Matériau, Entretien | Kamelya',
+        'Questions fréquentes sur Kamelya : prix 2026, comparaison des matières, entretien, durée de pose et garantie — réponses claires en 6 langues ici.',
     ],
     'it' => [
-        ['soru' => 'Come viene calcolato il prezzo?', 'cevap' => 'Area (m²) × prezzo base della tua lingua × coefficienti materiale, modello e uso. Visibile nel calcolatore.'],
-        ['soru' => 'Il sopralluogo è gratuito?', 'cevap' => 'Sì. Sopralluogo e misure completamente gratuiti.'],
-        ['soru' => 'Quanto dura la posa?', 'cevap' => 'Il piano di produzione e posa si fissa dopo il sopralluogo; appuntamenti Lun–Sab 09:00–18:00.'],
-        ['soru' => 'C’è una garanzia?', 'cevap' => 'Sì. Produzione certificata CE/TÜV/ISO con garanzia chiara.'],
+        'Kamelya FAQ 2026: Prezzo, Materiale, Manutenzione | Kamelya',
+        'Domande frequenti su Kamelya: prezzi 2026, confronto materiali, manutenzione, posa e garanzia — risposte chiare in 6 lingue qui disponibili Qui aggiornate.',
     ],
     'ar' => [
-        ['soru' => 'كيف يُحسب السعر؟', 'cevap' => 'المساحة (م²) × سعر البداية بلغتك × معاملات الخامة والموديل والاستخدام. يظهر فوراً في الحاسبة.'],
-        ['soru' => 'هل المعاينة مجانية؟', 'cevap' => 'نعم. المعاينة والقياس مجانيان تماماً.'],
-        ['soru' => 'كم يستغرق التركيب؟', 'cevap' => 'تُحدد خطة الإنتاج والتركيب بعد المعاينة؛ المواعيد من الاثنين إلى السبت 09:00–18:00.'],
-        ['soru' => 'هل يوجد ضمان؟', 'cevap' => 'نعم. إنتاج معتمد CE/TÜV/ISO مع شروط ضمان واضحة.'],
+        'كاميليا: أسئلة شائعة | كاميليا',
+        'أسئلة كاميليا الشائعة عن الأسعار والمواد والعناية والتركيب والضمان بست لغات مختلفة.',
     ],
 ];
+$seoHam = $SEO_HAM[$dil] ?? $SEO_HAM['tr'];
 
-$ogeler = $SSS[$dil] ?? $SSS['tr'];
+$ogeler = [];
+foreach ($olarak as $satir) {
+    $ogeler[] = [
+        'soru' => (string) ($satir['soru'] ?? ''),
+        'cevap' => (string) ($satir['cevap'] ?? ''),
+        'kapsam' => (string) ($satir['kapsam'] ?? ''),
+    ];
+}
 
 $SEO = [
-    'baslik' => t('sss_baslik') . ' — Fiyat, Keşif, Garanti — Kamelya',
-    'aciklama' => $dil === 'tr'
-        ? 'Sık Sorulan Sorular: Fiyat nasıl hesaplanıyor? Alan (m²) × başlangıç fiyatı × malzeme, model ve kullanım çarpanları ile anında hesaplanır. Keşif ücretsizdir.'
-        : t('sss_baslik') . ': ' . $ogeler[0]['soru'] . ' ' . $ogeler[0]['cevap'],
+    'baslik' => $seoHam[0],
+    'aciklama' => $seoHam[1],
     'yol' => $MEVCUT_YOL,
-    'jsonld' => jsonldSss($ogeler),
+    'jsonld' => $ogeler !== [] ? jsonldSss($ogeler) : null,
 ];
+if ($SEO['jsonld'] === null) {
+    unset($SEO['jsonld']);
+}
+
+$tumuEtiket = t('urun_filtre_tumu');
+$sekmeHtml = '<button type="button" class="btn btn-ikincil sss-sekme aktif" data-kapsam="" aria-pressed="true">'
+    . htmlspecialchars($tumuEtiket, ENT_QUOTES, 'UTF-8') . '</button>';
+foreach ($kapsamlar as $kod) {
+    $ad = $kapsamAdlari[$kod][$dil] ?? $kapsamAdlari[$kod]['tr'];
+    $sekmeHtml .= '<button type="button" class="btn btn-ikincil sss-sekme" data-kapsam="'
+        . htmlspecialchars($kod, ENT_QUOTES, 'UTF-8') . '" aria-pressed="false">'
+        . htmlspecialchars($ad, ENT_QUOTES, 'UTF-8') . '</button>';
+}
+
+$akordeonHtml = '';
+if ($ogeler === []) {
+    $metin = $bosMetin[$dil] ?? $bosMetin['tr'];
+    $akordeonHtml = '<p id="sss-bos">' . htmlspecialchars($metin, ENT_QUOTES, 'UTF-8') . '</p>';
+} else {
+    $akordeonHtml = sssAkordeon($ogeler);
+    // data-kapsam her akordeon satırına (client-side filtre)
+    $akordeonHtml = preg_replace_callback(
+        '/data-akordeon="(\d+)"/',
+        static function (array $m) use ($ogeler): string {
+            $i = (int) $m[1];
+            $k = htmlspecialchars($ogeler[$i]['kapsam'] ?? '', ENT_QUOTES, 'UTF-8');
+
+            return 'data-akordeon="' . $m[1] . '" data-kapsam="' . $k . '"';
+        },
+        $akordeonHtml
+    );
+}
 ?>
 <?= kirinti([['etiket' => t('anasayfa'), 'yol' => siteUrl('/')], ['etiket' => t('sss_baslik'), 'yol' => null]]) ?>
 <h1><?= htmlspecialchars(t('sss_baslik'), ENT_QUOTES, 'UTF-8') ?></h1>
-<?= sssAkordeon($ogeler) ?>
+<p><small>(<?= (int) $sayi ?>)</small></p>
+<nav class="sss-sekmeler" aria-label="<?= htmlspecialchars(t('sss_baslik'), ENT_QUOTES, 'UTF-8') ?>">
+  <?= $sekmeHtml ?>
+</nav>
+<div id="sss-liste">
+  <?= $akordeonHtml ?>
+</div>
+<p id="sss-filtre-bos" hidden><?= htmlspecialchars($bosMetin[$dil] ?? $bosMetin['tr'], ENT_QUOTES, 'UTF-8') ?></p>
+<script>
+(function () {
+  var dugmeler = document.querySelectorAll('.sss-sekme');
+  var satirlar = document.querySelectorAll('#sss-liste .akordeon');
+  var bos = document.getElementById('sss-filtre-bos');
+  var hepsi = document.getElementById('sss-bos');
+  if (!dugmeler.length) return;
+  dugmeler.forEach(function (d) {
+    d.addEventListener('click', function () {
+      var k = d.getAttribute('data-kapsam') || '';
+      dugmeler.forEach(function (x) {
+        x.classList.toggle('aktif', x === d);
+        x.setAttribute('aria-pressed', x === d ? 'true' : 'false');
+      });
+      var gorunen = 0;
+      satirlar.forEach(function (s) {
+        var sk = s.getAttribute('data-kapsam') || '';
+        var uygun = k === '' || sk === k;
+        s.hidden = !uygun;
+        if (uygun) gorunen++;
+      });
+      if (bos) bos.hidden = !(hepsi === null && gorunen === 0);
+    });
+  });
+})();
+</script>

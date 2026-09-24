@@ -24,6 +24,7 @@ final class RateLimitMiddleware
         'POST /api/v1/iletisim' => [3, 3600],
         'POST /api/v1/bulten' => [3, 3600],
         'GET /api/v1/arama' => [60, 60],
+        'GET /api/v1/sss-sorulari' => [60, 60],
     ];
 
     private const VARSAYILAN = [120, 60];

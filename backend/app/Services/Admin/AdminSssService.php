@@ -12,7 +12,8 @@ use PDO;
 /** SSS yönetimi — silme = pasifleştirme (deleted_at sütunu yok). */
 final class AdminSssService
 {
-    public const KAPSAMLAR = ['genel', 'fiyatlama', 'bakim'];
+    /** F16.2.3 — 8 kategori (görev Bölüm 2). */
+    public const KAPSAMLAR = ['fiyatlama', 'malzeme', 'bakim', 'montaj', 'garanti', 'teknik', 'kullanim', 'karsilastirma'];
 
     public function __construct(
         private PDO $baglanti,

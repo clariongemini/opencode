@@ -43,11 +43,24 @@ if ($kartlar === '') {
     $kartlar = '<p>' . htmlspecialchars(t('urun_bos'), ENT_QUOTES, 'UTF-8') . '</p>';
 }
 
-$sss = [
-    ['soru' => t('sss_baslik') . ' — 1', 'cevap' => t('usp_fiyat_alt')],
-    ['soru' => t('sss_baslik') . ' — 2', 'cevap' => t('usp_kesif_alt')],
-    ['soru' => t('sss_baslik') . ' — 3', 'cevap' => t('usp_garanti_alt')],
-];
+$sssYanit = apiGet('/sss-sorulari', $dil);
+$sss = [];
+foreach (($sssYanit['data'] ?? []) as $sssSatir) {
+    $sss[] = [
+        'soru' => (string) ($sssSatir['soru'] ?? ''),
+        'cevap' => (string) ($sssSatir['cevap'] ?? ''),
+    ];
+    if (count($sss) >= 3) {
+        break;
+    }
+}
+if ($sss === []) {
+    $sss = [
+        ['soru' => t('sss_baslik') . ' — 1', 'cevap' => t('usp_fiyat_alt')],
+        ['soru' => t('sss_baslik') . ' — 2', 'cevap' => t('usp_kesif_alt')],
+        ['soru' => t('sss_baslik') . ' — 3', 'cevap' => t('usp_garanti_alt')],
+    ];
+}
 ?>
 <section class="hero">
   <div class="kapsayici">

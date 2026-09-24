@@ -45,6 +45,7 @@ use Kamelya\Controllers\Api\V1\EkipController;
 use Kamelya\Controllers\Api\V1\KarsilastirmaController;
 use Kamelya\Controllers\Api\V1\SehirController;
 use Kamelya\Controllers\Api\V1\SertifikaController;
+use Kamelya\Controllers\Api\V1\SssController;
 use Kamelya\Controllers\Api\V1\RandevuController;
 use Kamelya\Controllers\Api\V1\SeoController;
 use Kamelya\Controllers\Api\V1\TalepController;
@@ -80,6 +81,7 @@ return function (Router $yonlendirici): void {
     $yonlendirici->ekle('GET', '/api/v1/sehirler/{slug}', SehirController::class, 'detay');
     $yonlendirici->ekle('GET', '/api/v1/ozellikler', OzellikController::class, 'harita');
     $yonlendirici->ekle('GET', '/api/v1/arama', AramaController::class, 'ara');
+    $yonlendirici->ekle('GET', '/api/v1/sss-sorulari', SssController::class, 'liste');
     $yonlendirici->ekle('GET', '/api/v1/blog', BlogController::class, 'liste');
     $yonlendirici->ekle('GET', '/api/v1/blog/{slug}', BlogController::class, 'detay');
     $yonlendirici->ekle('POST', '/api/v1/bulten', BultenController::class, 'kaydol');

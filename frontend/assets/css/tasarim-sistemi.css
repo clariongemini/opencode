@@ -132,6 +132,8 @@ img { max-width: 100%; height: auto; }
 
 /* Akordeon (SSS) */
 .akordeon { border: 1px solid var(--renk-cizgi); border-radius: 8px; margin-bottom: var(--bosluk-1); background: var(--renk-yuzey); }
+.sss-sekmeler { display: flex; flex-wrap: wrap; gap: var(--bosluk-1); margin-bottom: var(--bosluk-2); }
+.sss-sekme.aktif { background: var(--renk-yesil); color: #fff; border-color: var(--renk-yesil); }
 .akordeon-baslik { width: 100%; text-align: start; background: none; border: 0; font: inherit; font-weight: 600; padding: var(--bosluk-2); cursor: pointer; min-height: 44px; }
 .akordeon-icerik { padding: 0 var(--bosluk-2) var(--bosluk-2); }
 

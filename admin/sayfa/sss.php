@@ -2,9 +2,14 @@
   <div class="form-alan">
     <label class="etiket" for="s-kapsam">Sayfa Kapsamı</label>
     <select class="input" id="s-kapsam">
-      <option value="genel">Genel</option>
-      <option value="fiyatlama">Fiyatlama</option>
+      <option value="fiyatlama">Fiyat ve Ödeme</option>
+      <option value="malzeme">Malzeme Karşılaştırma</option>
       <option value="bakim">Bakım</option>
+      <option value="montaj">Montaj</option>
+      <option value="garanti">Garanti ve Teslimat</option>
+      <option value="teknik">Teknik</option>
+      <option value="kullanim">Kullanım</option>
+      <option value="karsilastirma">Karşılaştırma</option>
     </select>
   </div>
   <div class="form-alan">
