@@ -10,9 +10,22 @@ use Kamelya\Core\Migration;
  * down(): seo (blog) → ceviri → yazilar sırası.
  */
 return new class implements Migration {
-    public function up(PDO $baglanti): void
-    {
-        $yazIf = $baglanti->prepare(
+     public function up(PDO $baglanti): void
+     {
+         // Fresh deploy: admin kullanıcı garanti (yazar_id=1)
+         $adminIfade = $baglanti->prepare(
+             'INSERT INTO kullanicilar (ad_soyad, eposta, sifre_hash, rol, aktif)
+              VALUES (\'Sistem Yöneticisi\', \'admin@kamelya.local\',
+                      \'$2y$10$PLACEHOLDER_HASH\', \'yonetici\', 1)
+              ON DUPLICATE KEY UPDATE rol=\'yonetici\', aktif=1'
+         );
+         $adminIfade->execute();
+         // yazar_id dinamik çek (kullanıcı yoksa ID=1 varsayımı bozulur)
+         $yazarId = (int) $baglanti->query(
+             "SELECT id FROM kullanicilar WHERE eposta='admin@kamelya.local'"
+         )->fetchColumn();
+
+         $yazIf = $baglanti->prepare(
             'INSERT INTO blog_yazilari (id, yazar_id, kapak_resmi, yayin_durumu, yayin_tarihi)
              VALUES (?, 1, "/assets/img/yer-tutucu.svg", "yayinda", "2026-09-24 09:00:00")
              ON DUPLICATE KEY UPDATE yazar_id=VALUES(yazar_id), kapak_resmi=VALUES(kapak_resmi), yayin_durumu=VALUES(yayin_durumu), yayin_tarihi=VALUES(yayin_tarihi), deleted_at=NULL'

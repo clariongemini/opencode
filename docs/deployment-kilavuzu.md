@@ -209,6 +209,19 @@ nginx -t && systemctl reload nginx
 systemctl status certbot.timer
 ```
 
+### 6.2 Sitemap & Robots Routing
+
+Nginx config `nginx/kamelya.conf` içinde `/sitemap.xml` ve `/robots.txt` routing eklensin:
+```nginx
+location = /sitemap.xml {
+    try_files $uri /router.php?sitemap=1;
+}
+location = /robots.txt {
+    try_files $uri /router.php?robots=1;
+}
+```
+Bu sayede frontend router (`frontend/router.php`) `/sitemap.xml` ve `/robots.txt` URL'lerini doğru şekilde yönlendirir.
+
 **Özellikler:**
 - HTTP → HTTPS 301
 - HSTS (1 yıl, preload)
@@ -257,6 +270,11 @@ bash -c "$(curl -sSL https://betterstack.com/install.sh)" -- -t TOKEN
 
 # 3. DB Backup (her gün 02:00)
 0 2 * * * /var/www/kamelya/current/scripts/backup-db.sh >> /var/log/kamelya-backup.log 2>&1
+
+# 4. Audit Log Temizle (her gün 04:00, 90 günlük tut)
+0 4 * * * /usr/bin/php /var/www/kamelya/current/scripts/audit-temizle.php --gun=90 >> /var/log/kamelya-audit.log 2>&1
+# NOT: scripts/audit-temizle.php henüz oluşturilmemiş — F16.4 deploy sonrası.
+# Gecici: DELETE FROM audit_loglari WHERE olusturulma_zamani < NOW() - INTERVAL 90 DAY
 ```
 
 ---

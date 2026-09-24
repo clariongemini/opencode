@@ -139,6 +139,10 @@ final class AramaService
         }
 
         $ham = json_decode((string) file_get_contents($dosya), true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            error_log("JSON parse hatasi onbellek: " . json_last_error_msg() . " ($dosya)");
+            return null;
+        }
         if (!is_array($ham) || ($ham['zaman'] ?? 0) + 300 < time()) {
             return null;
         }

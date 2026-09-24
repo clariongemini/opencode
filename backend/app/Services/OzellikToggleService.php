@@ -227,6 +227,10 @@ final class OzellikToggleService
         $dosya = $this->onbellekDosya();
         if (is_file($dosya)) {
             $ham = json_decode((string) file_get_contents($dosya), true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                error_log("JSON parse hatasi ozellik: " . json_last_error_msg() . " ($dosya)");
+                return [];
+            }
             if (is_array($ham) && ($ham['zaman'] ?? 0) + 3600 > time() && isset($ham['veri'])) {
                 return $ham['veri'];
             }
