@@ -21,9 +21,12 @@ if (!is_array($bulunan)) {
 }
 
 $sehirAd = (string) ($bulunan['ad'] ?? '');
+// SEO meta: DB bandlı alanları tercih et (title 50-60 / desc 150-160 byte); seo_baslik tam (marka eki dahil).
+$seoBaslik = trim((string) ($bulunan['seo_baslik'] ?? ''));
+$seoAciklama = trim((string) ($bulunan['seo_aciklama'] ?? ''));
 $SEO = [
-    'baslik' => ($bulunan['seo_baslik'] ?? $sehirAd . ' Kamelya Fiyatları') . ' | Kamelya',
-    'aciklama' => kisaAciklama((string) ($bulunan['seo_aciklama'] ?? $bulunan['icerik'] ?? ''), 160),
+    'baslik' => $seoBaslik !== '' ? $seoBaslik : $sehirAd . ' Kamelya Fiyatları | Kamelya',
+    'aciklama' => $seoAciklama !== '' ? $seoAciklama : kisaAciklama((string) ($bulunan['icerik'] ?? ''), 160),
     'yol' => $MEVCUT_YOL,
     'jsonld' => [
         '@context' => 'https://schema.org',
@@ -33,9 +36,10 @@ $SEO = [
         'url' => siteUrl($MEVCUT_YOL),
     ],
 ];
+$h1Metin = $seoBaslik !== '' ? $seoBaslik : $sehirAd . ' Kamelya Fiyatları | Kamelya';
 ?>
 <?= kirinti([['etiket' => t('anasayfa'), 'yol' => siteUrl('/')], ['etiket' => 'Kamelya Fiyatları', 'yol' => null], ['etiket' => $sehirAd, 'yol' => null]]) ?>
-<h1><?= htmlspecialchars($sehirAd, ENT_QUOTES, 'UTF-8') ?> Kamelya Fiyatları | Kamelya</h1>
+<h1><?= htmlspecialchars($h1Metin, ENT_QUOTES, 'UTF-8') ?></h1>
 <?php if (!empty($bulunan['icerik'])): ?>
 <p><?= htmlspecialchars($bulunan['icerik'], ENT_QUOTES, 'UTF-8') ?></p>
 <?php endif; ?>

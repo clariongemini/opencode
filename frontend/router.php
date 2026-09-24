@@ -203,7 +203,9 @@ if ($sayfa === 'sitemap') {
         foreach ($liste['data'] ?? [] as $sehir) {
             $onek = $d === 'tr' ? '' : '/' . $d;
             $slug = $sehir['slug'] ?? $sehir['kod'];
-            echo '  <url><loc>' . htmlspecialchars($taban . $onek . '/kamelya-fiyatlari/' . $slug, ENT_QUOTES, 'UTF-8') . '</loc></url>' . "\n";
+            foreach (['kamelya-fiyatlari', 'ahsap-kamelya'] as $sehirOnEk) {
+                echo '  <url><loc>' . htmlspecialchars($taban . $onek . '/' . $sehirOnEk . '/' . $slug, ENT_QUOTES, 'UTF-8') . '</loc></url>' . "\n";
+            }
         }
     }
 
