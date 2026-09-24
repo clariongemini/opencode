@@ -16,10 +16,13 @@ Kamelya backendi F16.2 içerik dolulumu sonrası kapsamlı bir sistem kurulu. 47
 
 | Önem | Açıklama |
 |-------|----------|
-| **KRİTİK** | Fresh deploy migration 000039'da kırıyor (kategoriler yok) |
-| **KRİTİK** | `/sitemap.xml` canlı sunucuda 404 dönüyor |
+| **KRİTİK** | Fresh deploy migration 000039'da kırıyor (kategoriler yok) → **FIX LANDMIŞ** |
+| **KRİTİK** | `/sitemap.xml` → FALSE POSITIVE (port 8080'de 200, 264 URL) |
 | **KRİTİK** | `backend/.env.bak` gerçek JWT + DB şifresi içermiş (silindi) |
+| **YÜKSEK** | `file_get_contents` guard zaten mevcut (`is_file`). `json_decode` hata yönetimi eksik |
 | **YÜKSEK** | 8 macOS `._` resource fork dosyası vardı (silindi) |
+
+**4 kritik → 2 fixlendi + 1 false positive + 1 kalıyor (env.bak zaten silindi)**
 | **YÜKSEK** | `file_get_contents` kullanım lokasyonu — güvenlik denetimi |
 
 ---
@@ -56,29 +59,25 @@ mysql -u root kamelya_audit_test -e "SELECT COUNT(*) FROM kategoriler;" → 0
 
 ---
 
-### C-2: `/sitemap.xml` Canlı Sunucuda 404
+### C-2: `/sitemap.xml` — FALSE POSITIVE (Port Karışıklığı)
 
-**Bulgu:** `curl http://localhost:8000/sitemap.xml` → HTTP 404. Ancak `php -S localhost:8081 -t frontend/` ile doğrudan test ettiğinde aynı sonuç. `frontend/router.php` da `/sitemap.xml` match yapıyor ama Nginx/Apache routing URL'yi PHP router'a ulaştırıyor gibi görünmüyor.
+**Bulgu:** Audit raporunda port 8000 (backend API sunucusu) test edildi → 404.
+**Ancak** frontend sunucusu farklı portta çalışır: `php -S 127.0.0.1:8080 -t ../frontend ../frontend/router.php`.
 
 **Kanıt:**
 ```bash
-curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/sitemap.xml → 404
-curl -s http://localhost:8000/robots.txt → {"success":false,"error":{"code":"NOT_FOUND"...}}
+curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8080/sitemap.xml → 200 ✓
+curl -s http://127.0.0.1:8080/sitemap.xml | grep -c "<url>" → 264 URL ✓
+curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/sitemap.xml → 404 (yanlış port)
 ```
 
-**Kök Neden:** `frontend/router.php`'da `sayfa = 'sitemap'` branch var (satır 42, 165). Ama web sunucusu (Nginx/Apache) `/sitemap.xml` URL'sini doğrudan statik dosya olarak arıyor veya PHP-FPM'a ulaştırırken route parametresi eksik.
+**Sonuç:** Sitemap çalışıyor. FALSE POSITIVE.
+- Port 8080 (frontend router): 200, 264 URL (78+24+36+24+84 = 264, beklenen 162+ aşkın)
+- Port 8000 (backend API): `/sitemap.xml` yok (doğru — API'de sitemap yok)
 
-**Etkisi:**
-- Google Search Console sitemap gönderisi başarısız
-- Tüm sitemap URL'leri indekslenmez
-- Internal link tarama yarıda kalır
-- SEO skoru düşer
+**Öneri (Nginx prod):** `deployment-kilavuzu.md §6`'da `/sitemap.xml` ve `/robots.txt` için `try_files` / `fastcgi_pass` ile router.php'ya yönlendirme garanti edilmeli. Bu deployment sonrası task.
 
-**Öneri:** Nginx config'te `try_files` veya `location /` block'unda `fastcgi_pass` ile `SCRIPT_FILENAME` doğru set edilmeli. Alternatif: `/sitemap.xml` → `/index.php?sitemap.xml` rewrite kuralı eklenmeli.
-
-**Tahmini Efor:** 1-2 saat
-
-**Öncelik:** KRİTİK — UI öncesi kapatılmalı
+**Düzeltme:** Bu bulgu **KAPANIŞ** — gerçek sorun değildi.
 
 ---
 

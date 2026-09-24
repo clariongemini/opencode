@@ -34,6 +34,30 @@ use Kamelya\Core\Migration;
 return new class implements Migration {
     public function up(PDO $baglanti): void
     {
+        // Kategori garanti: fresh deploy'da 000039 öncesi hiçbir seed yok.
+        // 12 kategori (Model ×5, Malzeme ×3, KullanımAmacı ×4) idempotent INSERT.
+        $kategoriler = [
+            ['model', 'kare', 1, 'Kare'],
+            ['model', 'altigen', 2, 'Altıgen'],
+            ['model', 'dikdortgen', 3, 'Dikdörtgen'],
+            ['model', 'modern', 4, 'Modern'],
+            ['model', 'klasik', 5, 'Klasik'],
+            ['malzeme', 'ahsap', 1, 'Ahşap'],
+            ['malzeme', 'aluminyum', 2, 'Alüminyum'],
+            ['malzeme', 'kompozit', 3, 'Kompozit'],
+            ['kullanim_amaci', 'site_bahcesi', 1, 'Site Bahçesi'],
+            ['kullanim_amaci', 'restoran', 2, 'Restoran'],
+            ['kullanim_amaci', 'otel', 3, 'Otel'],
+            ['kullanim_amaci', 'belediye', 4, 'Belediye'],
+        ];
+        $katIfade = $baglanti->prepare(
+            'INSERT INTO kategoriler (tur, kod, sira) VALUES (?, ?, ?)
+             ON DUPLICATE KEY UPDATE sira = VALUES(sira), aktif = 1'
+        );
+        foreach ($kategoriler as [$tur, $kod, $sira, $_isim]) {
+            $katIfade->execute([$tur, $kod, $sira]);
+        }
+
         $kategoriId = static function (PDO $b, string $tur, string $kod): int {
             $s = $b->prepare('SELECT id FROM kategoriler WHERE tur = ? AND kod = ? LIMIT 1');
             $s->execute([$tur, $kod]);
